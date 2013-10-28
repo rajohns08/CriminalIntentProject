@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res" >
+            <file
+                name="ic_launcher"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/drawable-hdpi/ic_launcher.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_menu_add"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/drawable-hdpi/ic_menu_add.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/drawable-mdpi/ic_launcher.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_menu_add"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/drawable-mdpi/ic_menu_add.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/drawable-xhdpi/ic_launcher.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_menu_add"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/drawable-xhdpi/ic_menu_add.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="activity_fragment"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/layout/activity_fragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="dialog_date"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/layout/dialog_date.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="dialog_time"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/layout/dialog_time.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_crime"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/layout/fragment_crime.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_crimelist"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/layout/fragment_crimelist.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="list_item_crime"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/layout/list_item_crime.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_crime"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/layout-land/fragment_crime.xml"
+                qualifiers="land"
+                type="layout" />
+            <file
+                name="crime_list_item_context"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/menu/crime_list_item_context.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="fragment_crime_list"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/menu/fragment_crime_list.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="fragment_crime_list"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/menu-v11/fragment_crime_list.xml"
+                qualifiers="v11"
+                type="menu" />
+            <file
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/values/dimens.xml"
+                qualifiers="" >
+                <dimen name="activity_horizontal_margin" >16dp
+                </dimen>
+                <dimen name="activity_vertical_margin" >16dp
+                </dimen>
+            </file>
+            <file
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/values/ids.xml"
+                qualifiers="" >
+                <item
+                    name="viewPager"
+                    type="id"/>
+            </file>
+            <file
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/values/strings.xml"
+                qualifiers="" >
+                <string name="crimes_title" >Crimes
+                </string>
+                <string name="date_picker_title" >Date of crime
+                </string>
+                <string name="title_activity_crime" >CrimeActivity
+                </string>
+                <string name="time_picker_title" >Time of crime
+                </string>
+                <string name="new_crime" >New Crime
+                </string>
+                <string name="hide_subtitle" >Hide Subtitle
+                </string>
+                <string name="crime_solved_label" >Solved?
+                </string>
+                <string name="app_name" >CriminalIntent
+                </string>
+                <string name="crime_title_hint" >Enter a title for the crime
+                </string>
+                <string name="delete_crime" >Delete
+                </string>
+                <string name="subtitle" >If you see something, say something.
+                </string>
+                <string name="crime_details_label" >Details
+                </string>
+                <string name="crime_title_label" >Title
+                </string>
+                <string name="show_subtitle" >Show Subtitle
+                </string>
+            </file>
+            <file
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/values/styles.xml"
+                qualifiers="" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Light" >
+
+                    <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+                    -->
+                </style>
+
+                <style
+                    name="AppTheme"
+                    parent="AppBaseTheme" >
+
+                    <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+                </style>
+            </file>
+            <file
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/values-sw720dp-land/dimens.xml"
+                qualifiers="sw720dp-land" >
+                <dimen name="activity_horizontal_margin" >128dp
+                </dimen>
+            </file>
+            <file
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/values-v11/styles.xml"
+                qualifiers="v11" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Holo.Light" >
+
+                    <!-- API 11 theme customizations can go here. -->
+                </style>
+            </file>
+            <file
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/values-v14/styles.xml"
+                qualifiers="v14" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Holo.Light.DarkActionBar" >
+
+                    <!-- API 14 theme customizations can go here. -->
+                </style>
+            </file>
+            <file
+                name="background_activated"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/drawable/background_activated.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="menu_crime_detail"
+                path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/menu/menu_crime_detail.xml"
+                qualifiers=""
+                type="menu" />
+        </source>
+        <source path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/build/res/rs/debug" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/debug/res" />
+    </dataSet>
+
+</merger>
