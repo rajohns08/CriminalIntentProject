@@ -100,7 +100,7 @@
       <file leaf-file-name="CrimeFragment.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CriminalIntent/src/main/java/com/bignerdranch/android/criminalintent/CrimeFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="198" column="0" selection-start="7797" selection-end="7797" vertical-scroll-proportion="3.105802" vertical-offset="0" max-vertical-offset="3075">
+            <state line="38" column="93" selection-start="1164" selection-end="1164" vertical-scroll-proportion="0.4699093" vertical-offset="0" max-vertical-offset="3105">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -111,7 +111,7 @@
       <file leaf-file-name="CrimeListFragment.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CriminalIntent/src/main/java/com/bignerdranch/android/criminalintent/CrimeListFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="176" column="35" selection-start="6358" selection-end="6358" vertical-scroll-proportion="0.0" vertical-offset="1922" max-vertical-offset="3135">
+            <state line="176" column="35" selection-start="6358" selection-end="6358" vertical-scroll-proportion="0.0" vertical-offset="2640" max-vertical-offset="3570">
               <folding />
             </state>
           </provider>
@@ -1021,8 +1021,7 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26027396" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2691378" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26870474" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1040,8 +1039,9 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961783" sideWeight="0.7639001" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26027396" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1133,9 +1133,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/settings.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1213">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1213" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CriminalIntent/src/main/java/com/bignerdranch/android/criminalintent/CrimeListFragment.java">
@@ -1147,16 +1145,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/local.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="390" selection-end="390" vertical-scroll-proportion="0.15168539" vertical-offset="0" max-vertical-offset="890">
-          <folding />
-        </state>
+        <state line="9" column="0" selection-start="390" selection-end="390" vertical-scroll-proportion="0.15168539" vertical-offset="0" max-vertical-offset="890" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CriminalIntent/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="385" selection-end="385" vertical-scroll-proportion="0.39884394" vertical-offset="0" max-vertical-offset="865">
-          <folding />
-        </state>
+        <state line="23" column="0" selection-start="385" selection-end="385" vertical-scroll-proportion="0.39884394" vertical-offset="0" max-vertical-offset="865" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
@@ -1168,7 +1162,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CriminalIntent/src/main/java/com/bignerdranch/android/criminalintent/CrimeFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="198" column="0" selection-start="7797" selection-end="7797" vertical-scroll-proportion="3.105802" vertical-offset="0" max-vertical-offset="3075">
+        <state line="38" column="93" selection-start="1164" selection-end="1164" vertical-scroll-proportion="0.4699093" vertical-offset="0" max-vertical-offset="3105">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
