@@ -100,10 +100,8 @@
       <file leaf-file-name="CrimeFragment.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CriminalIntent/src/main/java/com/bignerdranch/android/criminalintent/CrimeFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="198" column="0" selection-start="7797" selection-end="7797" vertical-scroll-proportion="3.105802" vertical-offset="0" max-vertical-offset="3075">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="26" column="0" selection-start="818" selection-end="818" vertical-scroll-proportion="0.443686" vertical-offset="0" max-vertical-offset="3075">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1022,7 +1020,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26027396" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2691378" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2691378" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1168,10 +1166,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CriminalIntent/src/main/java/com/bignerdranch/android/criminalintent/CrimeFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="198" column="0" selection-start="7797" selection-end="7797" vertical-scroll-proportion="3.105802" vertical-offset="0" max-vertical-offset="3075">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="26" column="0" selection-start="818" selection-end="818" vertical-scroll-proportion="0.443686" vertical-offset="0" max-vertical-offset="3075">
+          <folding />
         </state>
       </provider>
     </entry>
