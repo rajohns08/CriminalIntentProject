@@ -8,10 +8,11 @@ buildscript {
 }
 apply plugin: 'android'
 
+//TODO: FIGURE OUT HOW TO ADD ABS
 dependencies {
 //    compile files('libs/android-support-v4.jar')
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
-//    compile 'com.android.support:support-v4:18.0.+'
+    compile 'com.android.support:support-v4:18.0.+'
 }
 
 android {
