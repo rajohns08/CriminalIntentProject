@@ -1,14 +1,36 @@
+# built application files
+*.apk
+*.ap_
 
-*.bin
+# files for the dex VM
+*.dex
 
-*.bin
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+
+# Android Studio
+.idea/
+.gradle/
+/*/local.properties
+/*/out
+/*/*/build
+/*/*/production
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
+.gradle/1.8/taskArtifacts/fileHashes.bin
 
 .idea/workspace.xml
-
-CriminalIntent/build/libs/CriminalIntent-debug.ap_
-
-.idea/workspace.xml
-
-CriminalIntent/build/libs/CriminalIntent-debug.ap_
-
-.idea/libraries/support_v4_18_0_0.xml
