@@ -36,6 +36,8 @@ import java.util.UUID;
  */
 public class CrimeFragment extends Fragment {
 
+    //TODO: MAKE SWAPPING BRANCHES IN GITHUB SEAMLESS BY ADDING CORRECT GITIGNORE INFORMATION
+
     public static final String EXTRA_CRIME_ID = "com.bignerdranch.android.criminalintent.crime_id";
     private static final String DIALOG_DATE = "date";
     private static final String DIALOG_TIME = "time";
