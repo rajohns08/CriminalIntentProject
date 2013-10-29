@@ -31,3 +31,6 @@ local.properties
 *.ipr
 *~
 *.swp
+.gradle/1.8/taskArtifacts/fileHashes.bin
+
+.idea/workspace.xml
