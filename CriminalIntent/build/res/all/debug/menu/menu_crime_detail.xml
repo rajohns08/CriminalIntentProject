@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_item_detail_delete"
-        android:icon="@android:drawable/ic_menu_delete"
-        android:title="@string/delete_crime"
-        android:showAsAction="ifRoom|withText"
-        />
-</menu><!-- From: file:/Users/rajohns/Downloads/CriminalIntentProject/CriminalIntent/src/main/res/menu/menu_crime_detail.xml -->
