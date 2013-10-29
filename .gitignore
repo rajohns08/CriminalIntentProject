@@ -10,3 +10,5 @@ CriminalIntent/build/libs/CriminalIntent-debug.ap_
 .idea/workspace.xml
 
 CriminalIntent/build/libs/CriminalIntent-debug.ap_
+
+.idea/libraries/support_v4_18_0_0.xml
