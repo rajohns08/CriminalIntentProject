@@ -1,5 +1,5 @@
 package com.bignerdranch.android.criminalintent;
-// MAIN BRANCH!!!!
+// MAIN BRANCH!!!! AFTER FIXING GITIGNORE
 
 import android.annotation.TargetApi;
 import android.app.Activity;
