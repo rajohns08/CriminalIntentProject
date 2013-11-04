@@ -4,14 +4,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBarActivity;
 
 /**
  * Created by rajohns on 7/15/13.
  */
 
-// TODO: FIGURE OUT HOW TO INHERIT FROM ACTIONBARACTIVITY SO ACTION BAR SHOWS ON 2.X VERSIONS OF ANDROID
-
-public abstract class SingleFragmentActivity extends FragmentActivity{
+public abstract class SingleFragmentActivity extends ActionBarActivity{
 
     protected abstract Fragment createFragment();
 

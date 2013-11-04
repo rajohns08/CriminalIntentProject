@@ -31,6 +31,9 @@ import java.util.ArrayList;
 /**
  * Created by rajohns on 7/15/13.
  */
+
+// TODO: SHOW SUBTITLE BUTTON AND MORE BUTTON SHOULD SHOW ON ACTION BAR IN 2.3.3 LIKE 4.1.2
+
 public class CrimeListFragment extends ListFragment{
 
     private ArrayList<Crime> mCrimes;
@@ -180,7 +183,9 @@ public class CrimeListFragment extends ListFragment{
                 goToAddCrimePage();
                 return true;
             case R.id.menu_item_show_subtitle:
-                toggleSubtitle(item);
+                Intent i = new Intent(getActivity(), TestActivity.class);
+                startActivityForResult(i, 0);
+//                toggleSubtitle(item);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
