@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextMenu;
@@ -67,14 +69,17 @@ public class CrimeListFragment extends ListFragment{
             }
         });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             if (mSubtitleVisible) {
-                getActivity().getActionBar().setSubtitle(R.string.show_subtitle);
+//                getActivity().getActionBar().setSubtitle(R.string.show_subtitle);
+                // TODO: GET ACTION BAR OF SUPPORT ACTION BAR, SO I CAN SET SUBTITLES BELOW API 11
+                ((ActionBarActivity)getActivity()).getSupportActionBar().setSubtitle(R.string.show_subtitle);
             }
-        }
+//        }
 
         ListView listView = (ListView)v.findViewById(android.R.id.list);
 
+        // TODO: USE CONEXTUAL ACTION MODE FOR OLD VERSIONS INSTEAD OF FLOATING CONTEXT MENU
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             registerForContextMenu(listView);
         }
