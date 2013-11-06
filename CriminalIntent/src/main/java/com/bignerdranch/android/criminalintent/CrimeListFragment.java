@@ -72,62 +72,109 @@ public class CrimeListFragment extends ListFragment{
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             if (mSubtitleVisible) {
 //                getActivity().getActionBar().setSubtitle(R.string.show_subtitle);
-                // TODO: GET ACTION BAR OF SUPPORT ACTION BAR, SO I CAN SET SUBTITLES BELOW API 11
                 ((ActionBarActivity)getActivity()).getSupportActionBar().setSubtitle(R.string.show_subtitle);
             }
 //        }
 
+        final android.support.v7.view.ActionMode.Callback actionModeCallback = new android.support.v7.view.ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(android.support.v7.view.ActionMode actionMode, Menu menu) {
+                MenuInflater infl = actionMode.getMenuInflater();
+                infl.inflate(R.menu.crime_list_item_context, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(android.support.v7.view.ActionMode actionMode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(android.support.v7.view.ActionMode actionMode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_item_delete_crime:
+                        CrimeAdapter adapter = (CrimeAdapter)getListAdapter();
+                        CrimeLab crimeLab = CrimeLab.get(getActivity());
+                        for (int i = adapter.getCount() - 1; i >= 0; i--) {
+                            if (getListView().isItemChecked(i)) {
+                                crimeLab.deleteCrime(adapter.getItem(i));
+                            }
+                        }
+                        actionMode.finish();
+                        adapter.notifyDataSetChanged();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(android.support.v7.view.ActionMode actionMode) {
+
+            }
+        };
+
+
         ListView listView = (ListView)v.findViewById(android.R.id.list);
 
-        // TODO: USE CONEXTUAL ACTION MODE FOR OLD VERSIONS INSTEAD OF FLOATING CONTEXT MENU
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            registerForContextMenu(listView);
-        }
-        else {
-            listView.setChoiceMode(listView.CHOICE_MODE_MULTIPLE_MODAL);
-            listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
-                @Override
-                public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
+        // TODO: HAVE A WAY TO CHECK ITEMS SO THAT IN ONACTIONITEMCLICKED FOR DELETE, IT WILL KNOW WHICH ITEMS ARE CHECKED. SHOULD THIS BE DONE IN AN ONCLICKLISTENER? ALSO SET BACKGROUND DARK COLOR SO WE KNOW WHEN CHECKED
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+//            registerForContextMenu(listView);
+//        }
+//        else {
+            listView.setChoiceMode(listView.CHOICE_MODE_MULTIPLE);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                ((ActionBarActivity)getActivity()).startSupportActionMode(actionModeCallback);
+                return false;
+            }
+        });
 
-                }
 
-                @Override
-                public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-                    MenuInflater infl = actionMode.getMenuInflater();
-                    infl.inflate(R.menu.crime_list_item_context, menu);
-                    return true;
-                }
-
-                @Override
-                public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
-                    return false;
-                }
-
-                @Override
-                public boolean onActionItemClicked(ActionMode actionMode, MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.menu_item_delete_crime:
-                            CrimeAdapter adapter = (CrimeAdapter)getListAdapter();
-                            CrimeLab crimeLab = CrimeLab.get(getActivity());
-                            for (int i = adapter.getCount() - 1; i >= 0; i--) {
-                                if (getListView().isItemChecked(i)) {
-                                    crimeLab.deleteCrime(adapter.getItem(i));
-                                }
-                            }
-                            actionMode.finish();
-                            adapter.notifyDataSetChanged();
-                            return true;
-                        default:
-                            return false;
-                    }
-                }
-
-                @Override
-                public void onDestroyActionMode(ActionMode actionMode) {
-
-                }
-            });
-        }
+//            listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+//                @Override
+//                public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
+//
+//                }
+//
+//                @Override
+//                public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+//                    MenuInflater infl = actionMode.getMenuInflater();
+//                    infl.inflate(R.menu.crime_list_item_context, menu);
+//                    return true;
+//                }
+//
+//                @Override
+//                public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+//                    return false;
+//                }
+//
+//                @Override
+//                public boolean onActionItemClicked(ActionMode actionMode, MenuItem item) {
+//                    switch (item.getItemId()) {
+//                        case R.id.menu_item_delete_crime:
+//                            CrimeAdapter adapter = (CrimeAdapter)getListAdapter();
+//                            CrimeLab crimeLab = CrimeLab.get(getActivity());
+//                            for (int i = adapter.getCount() - 1; i >= 0; i--) {
+//                                if (getListView().isItemChecked(i)) {
+//                                    crimeLab.deleteCrime(adapter.getItem(i));
+//                                }
+//                            }
+//                            actionMode.finish();
+//                            adapter.notifyDataSetChanged();
+//                            return true;
+//                        default:
+//                            return false;
+//                    }
+//                }
+//
+//                @Override
+//                public void onDestroyActionMode(ActionMode actionMode) {
+//
+//                }
+//            });
+//        }
 
         return v;
     }
