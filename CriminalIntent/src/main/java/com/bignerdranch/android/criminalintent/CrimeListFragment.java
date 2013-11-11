@@ -34,7 +34,7 @@ import java.util.ArrayList;
  * Created by rajohns on 7/15/13.
  */
 
-// TODO: SHOW SUBTITLE BUTTON AND MORE BUTTON SHOULD SHOW ON ACTION BAR IN 2.3.3 LIKE 4.1.2
+// TODO: WHY ISNT ONCREATEOPTIONSMENU SHOWING LAYOUT FILE IN ACTIONBAR? IT IS BEING CALLED CORRECTLY. TRY TO START MAKING IT WORK AGAIN BY GOING BACK TO EXTENDING ACTIVITY. FIGURE OUT WHAT STEP MAKES IT START/STOP WORKING.
 
 public class CrimeListFragment extends ListFragment{
 
@@ -69,12 +69,9 @@ public class CrimeListFragment extends ListFragment{
             }
         });
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (mSubtitleVisible) {
-//                getActivity().getActionBar().setSubtitle(R.string.show_subtitle);
-                ((ActionBarActivity)getActivity()).getSupportActionBar().setSubtitle(R.string.show_subtitle);
-            }
-//        }
+        if (mSubtitleVisible) {
+            ((ActionBarActivity)getActivity()).getSupportActionBar().setSubtitle(R.string.subtitle);
+        }
 
         final android.support.v7.view.ActionMode.Callback actionModeCallback = new android.support.v7.view.ActionMode.Callback() {
             @Override
@@ -114,15 +111,10 @@ public class CrimeListFragment extends ListFragment{
             }
         };
 
-
         ListView listView = (ListView)v.findViewById(android.R.id.list);
 
         // TODO: HAVE A WAY TO CHECK ITEMS SO THAT IN ONACTIONITEMCLICKED FOR DELETE, IT WILL KNOW WHICH ITEMS ARE CHECKED. SHOULD THIS BE DONE IN AN ONCLICKLISTENER? ALSO SET BACKGROUND DARK COLOR SO WE KNOW WHEN CHECKED
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-//            registerForContextMenu(listView);
-//        }
-//        else {
-            listView.setChoiceMode(listView.CHOICE_MODE_MULTIPLE);
+        listView.setChoiceMode(listView.CHOICE_MODE_MULTIPLE);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -130,51 +122,6 @@ public class CrimeListFragment extends ListFragment{
                 return false;
             }
         });
-
-
-//            listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
-//                @Override
-//                public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
-//
-//                }
-//
-//                @Override
-//                public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-//                    MenuInflater infl = actionMode.getMenuInflater();
-//                    infl.inflate(R.menu.crime_list_item_context, menu);
-//                    return true;
-//                }
-//
-//                @Override
-//                public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
-//                    return false;
-//                }
-//
-//                @Override
-//                public boolean onActionItemClicked(ActionMode actionMode, MenuItem item) {
-//                    switch (item.getItemId()) {
-//                        case R.id.menu_item_delete_crime:
-//                            CrimeAdapter adapter = (CrimeAdapter)getListAdapter();
-//                            CrimeLab crimeLab = CrimeLab.get(getActivity());
-//                            for (int i = adapter.getCount() - 1; i >= 0; i--) {
-//                                if (getListView().isItemChecked(i)) {
-//                                    crimeLab.deleteCrime(adapter.getItem(i));
-//                                }
-//                            }
-//                            actionMode.finish();
-//                            adapter.notifyDataSetChanged();
-//                            return true;
-//                        default:
-//                            return false;
-//                    }
-//                }
-//
-//                @Override
-//                public void onDestroyActionMode(ActionMode actionMode) {
-//
-//                }
-//            });
-//        }
 
         return v;
     }
@@ -235,45 +182,21 @@ public class CrimeListFragment extends ListFragment{
                 goToAddCrimePage();
                 return true;
             case R.id.menu_item_show_subtitle:
-                Intent i = new Intent(getActivity(), TestActivity.class);
-                startActivityForResult(i, 0);
-//                toggleSubtitle(item);
+                toggleSubtitle(item);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        getActivity().getMenuInflater().inflate(R.menu.crime_list_item_context, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-        int position = info.position;
-        CrimeAdapter adapter = (CrimeAdapter)getListAdapter();
-        Crime crime = adapter.getItem(position);
-
-        switch (item.getItemId()) {
-            case R.id.menu_item_delete_crime:
-                CrimeLab.get(getActivity()).deleteCrime(crime);
-                adapter.notifyDataSetChanged();
-                return true;
-        }
-        return super.onContextItemSelected(item);
-    }
-
-    @TargetApi(11)
     public void toggleSubtitle(MenuItem item) {
-        if (getActivity().getActionBar().getSubtitle() == null) {
-            getActivity().getActionBar().setSubtitle(R.string.subtitle);
+        if (((ActionBarActivity)getActivity()).getSupportActionBar().getSubtitle() == null) {
+            ((ActionBarActivity)getActivity()).getSupportActionBar().setSubtitle(R.string.subtitle);
             mSubtitleVisible = true;
             item.setTitle(R.string.hide_subtitle);
         }
         else {
-            getActivity().getActionBar().setSubtitle(null);
+            ((ActionBarActivity)getActivity()).getSupportActionBar().setSubtitle(null);
             mSubtitleVisible = false;
             item.setTitle(R.string.show_subtitle);
         }
