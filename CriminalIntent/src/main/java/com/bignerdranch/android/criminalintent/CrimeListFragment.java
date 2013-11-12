@@ -34,8 +34,6 @@ import java.util.ArrayList;
  * Created by rajohns on 7/15/13.
  */
 
-// TODO: WHY ISNT ONCREATEOPTIONSMENU SHOWING LAYOUT FILE IN ACTIONBAR? IT IS BEING CALLED CORRECTLY. TRY TO START MAKING IT WORK AGAIN BY GOING BACK TO EXTENDING ACTIVITY. FIGURE OUT WHAT STEP MAKES IT START/STOP WORKING.
-
 public class CrimeListFragment extends ListFragment{
 
     private ArrayList<Crime> mCrimes;
