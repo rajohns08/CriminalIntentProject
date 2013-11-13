@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--TODO: WHY ARE BOTH OPTIONS MENU ITEMS CONDENSED INTO MORE BUTTON?-->
-    <!--I THINK BECAUSE SHOWASACTION ATTRIBUTE WAS INTRODUCED IN-->
-    <!--API 11 ACCORDING TO PG 256, SO IT IS JUST IGNORING IT IN-->
-    <!--SUPPORT ACTION BAR-->
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_item_new_crime"
         android:icon="@drawable/ic_menu_add"
         android:title="@string/new_crime"
-        android:showAsAction="always|withText" />
-        <!--android:showAsAction="ifRoom|withText" />-->
+        yourapp:showAsAction="ifRoom|withText" />
 
     <item android:id="@+id/menu_item_show_subtitle"
         android:title="@string/show_subtitle"
-        android:showAsAction="ifRoom" />
+        yourapp:showAsAction="ifRoom" />
 
 </menu>
