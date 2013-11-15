@@ -40,6 +40,8 @@ public class CrimeListFragment extends ListFragment{
     private static final String TAG = "CrimeListFragment";
     private boolean mSubtitleVisible;
     private Button plusButton;
+    private android.support.v7.view.ActionMode.Callback actionModeCallback;
+    private boolean inActionMode = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,11 +73,12 @@ public class CrimeListFragment extends ListFragment{
             ((ActionBarActivity)getActivity()).getSupportActionBar().setSubtitle(R.string.subtitle);
         }
 
-        final android.support.v7.view.ActionMode.Callback actionModeCallback = new android.support.v7.view.ActionMode.Callback() {
+        actionModeCallback = new android.support.v7.view.ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(android.support.v7.view.ActionMode actionMode, Menu menu) {
                 MenuInflater infl = actionMode.getMenuInflater();
                 infl.inflate(R.menu.crime_list_item_context, menu);
+                inActionMode = true;
                 return true;
             }
 
@@ -105,21 +108,17 @@ public class CrimeListFragment extends ListFragment{
 
             @Override
             public void onDestroyActionMode(android.support.v7.view.ActionMode actionMode) {
-
+                inActionMode = false;
             }
         };
 
         ListView listView = (ListView)v.findViewById(android.R.id.list);
 
-        // TODO: HAVE A WAY TO CHECK ITEMS SO THAT IN ONACTIONITEMCLICKED FOR DELETE, IT WILL KNOW WHICH ITEMS ARE CHECKED.
-        // TODO: SHOULD THIS BE DONE IN AN ONCLICKLISTENER? ALSO SET BACKGROUND DARK COLOR SO WE KNOW WHEN CHECKED
-
-        // TODO: IS THIS THE CORRECT WAY TO ENTER ACTION MODE?
-
         listView.setChoiceMode(listView.CHOICE_MODE_MULTIPLE);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                listView.setItemChecked(position, true);
                 ((ActionBarActivity)getActivity()).startSupportActionMode(actionModeCallback);
                 return false;
             }
@@ -128,12 +127,22 @@ public class CrimeListFragment extends ListFragment{
         return v;
     }
 
+    // TODO: WHY DOESN'T SETTING ITEM CHECKED SET BACKGROUND TO DARK GRAY IN 2.3.3 BUT IT DOES IN 4.1.2?
+    // TODO: SETITEMCHECKED(FALSE) IF ROW IS SELECTED AND IT IS CURRENTLY TRUE
+
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Crime c = ((CrimeAdapter)getListAdapter()).getItem(position);
-        Intent i = new Intent(getActivity(), CrimePagerActivity.class);
-        i.putExtra(CrimeFragment.EXTRA_CRIME_ID, c.getmID());
-        startActivity(i);
+        if (inActionMode) {
+            l.setItemChecked(position, true);
+//            l.setSelection(position);
+        }
+
+        else {
+            Crime c = ((CrimeAdapter)getListAdapter()).getItem(position);
+            Intent i = new Intent(getActivity(), CrimePagerActivity.class);
+            i.putExtra(CrimeFragment.EXTRA_CRIME_ID, c.getmID());
+            startActivity(i);
+        }
     }
 
     private class CrimeAdapter extends ArrayAdapter<Crime> {
