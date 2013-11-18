@@ -114,6 +114,8 @@ public class CrimeListFragment extends ListFragment{
 
         ListView listView = (ListView)v.findViewById(android.R.id.list);
 
+        // TODO: SET LONG CLICKED ITEM TO BE CHECKED IMMEDIATELY UPON ENTERING ACTION MODE
+
         listView.setChoiceMode(listView.CHOICE_MODE_MULTIPLE);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -127,7 +129,7 @@ public class CrimeListFragment extends ListFragment{
         return v;
     }
 
-    // TODO: WHY DOESN'T SETTING ITEM CHECKED SET BACKGROUND TO DARK GRAY IN 2.3.3 BUT IT DOES IN 4.1.2?
+    // TODO: WHY DOESN'T SETTING ITEM CHECKED SET BACKGROUND TO DARK GRAY, BUT IT USED TO! AND NOTHING DELETES ANYMORE EVEN IF SET TO CHECKED LIKE IT USED TO!
     // TODO: SETITEMCHECKED(FALSE) IF ROW IS SELECTED AND IT IS CURRENTLY TRUE
 
     @Override
