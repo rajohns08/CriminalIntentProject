@@ -114,7 +114,7 @@ public class CrimeListFragment extends ListFragment{
 
         ListView listView = (ListView)v.findViewById(android.R.id.list);
 
-        // TODO: SET LONG CLICKED ITEM TO BE CHECKED IMMEDIATELY UPON ENTERING ACTION MODE
+        // TODO: SET LONG CLICKED ITEM TO BE CHECKED IMMEDIATELY UPON ENTERING ACTION MODE - ACTUALLY LOOKS LIKE THIS MAY BE HAPPENING BY DEFAULT.
 
         listView.setChoiceMode(listView.CHOICE_MODE_MULTIPLE);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -129,13 +129,24 @@ public class CrimeListFragment extends ListFragment{
         return v;
     }
 
-    // TODO: WHY DOESN'T SETTING ITEM CHECKED SET BACKGROUND TO DARK GRAY, BUT IT USED TO! AND NOTHING DELETES ANYMORE EVEN IF SET TO CHECKED LIKE IT USED TO!
-    // TODO: SETITEMCHECKED(FALSE) IF ROW IS SELECTED AND IT IS CURRENTLY TRUE
+    // TODO: WHY DOESN'T CLICKING ITEM IN ACTION MODE MAKE BACKGROUND DARK GRAY IN 2.3.3 LIKE IT DOES IN 4.1.2? MAYBE TRY CHANGING COLOR OT BLUE TO MAKE SURE 4.1.2 IS WORKING WITH MY CODE
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         if (inActionMode) {
-            l.setItemChecked(position, true);
+            // actually it looks like i don't have to do anything here for 4.1.2 because it automatically handles checking in aciton mode
+
+
+
+
+
+        // this logic seems backwards because as soon as a touch happens on the row, it is set to checked, before this code ever executes
+//            if (!l.isItemChecked(position)) {
+//                l.setItemChecked(position, false);
+//            }
+//            else {
+//                l.setItemChecked(position, true);
+//            }
 //            l.setSelection(position);
         }
 
