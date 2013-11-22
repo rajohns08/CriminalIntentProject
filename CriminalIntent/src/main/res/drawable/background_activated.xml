@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--TODO: FIGURE OUT HOW TO USE STATE_ACTIVATED FOR 2.3.3 LIKE IT WORKS IN 4.1.2. CHECK SO ANSWER-->
-
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_activated="true"

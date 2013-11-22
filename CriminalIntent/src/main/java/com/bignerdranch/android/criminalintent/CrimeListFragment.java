@@ -5,6 +5,7 @@ package com.bignerdranch.android.criminalintent;
 import android.annotation.TargetApi;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -42,6 +43,7 @@ public class CrimeListFragment extends ListFragment{
     private Button plusButton;
     private android.support.v7.view.ActionMode.Callback actionModeCallback;
     private boolean inActionMode = false;
+    private ListView listView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -112,7 +114,7 @@ public class CrimeListFragment extends ListFragment{
             }
         };
 
-        ListView listView = (ListView)v.findViewById(android.R.id.list);
+        listView = (ListView)v.findViewById(android.R.id.list);
 
         listView.setChoiceMode(listView.CHOICE_MODE_MULTIPLE);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -147,6 +149,7 @@ public class CrimeListFragment extends ListFragment{
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_crime, null);
             }
 
+
             Crime c = getItem(position);
             TextView titleTextView = (TextView)convertView.findViewById(R.id.crime_list_item_titleTextView);
             titleTextView.setText(c.getmTitle());
@@ -156,6 +159,13 @@ public class CrimeListFragment extends ListFragment{
 
             CheckBox solvedCheckBox = (CheckBox)convertView.findViewById(R.id.crime_list_item_solvedCheckBox);
             solvedCheckBox.setChecked(c.ismSolved());
+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                convertView.setBackgroundColor(Color.WHITE);
+                if (listView.isItemChecked(position)) {
+                    convertView.setBackgroundColor(Color.LTGRAY);
+                }
+            }
 
             return convertView;
         }
