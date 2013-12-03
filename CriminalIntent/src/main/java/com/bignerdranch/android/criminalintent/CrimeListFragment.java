@@ -44,6 +44,7 @@ public class CrimeListFragment extends ListFragment{
     private android.support.v7.view.ActionMode.Callback actionModeCallback;
     private boolean inActionMode = false;
     private ListView listView;
+    private int selectedIndex;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,12 +76,20 @@ public class CrimeListFragment extends ListFragment{
             ((ActionBarActivity)getActivity()).getSupportActionBar().setSubtitle(R.string.subtitle);
         }
 
+        //TODO: SELECT FIRST ROW IMMEDIATELY UPON ENTERING ACTION MODE
+
         actionModeCallback = new android.support.v7.view.ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(android.support.v7.view.ActionMode actionMode, Menu menu) {
                 MenuInflater infl = actionMode.getMenuInflater();
                 infl.inflate(R.menu.crime_list_item_context, menu);
                 inActionMode = true;
+
+
+//                listView.setItemChecked(selectedIndex, true);
+
+
+
                 return true;
             }
 
@@ -111,6 +120,7 @@ public class CrimeListFragment extends ListFragment{
             @Override
             public void onDestroyActionMode(android.support.v7.view.ActionMode actionMode) {
                 inActionMode = false;
+                deselectAllRows();
             }
         };
 
@@ -120,6 +130,7 @@ public class CrimeListFragment extends ListFragment{
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedIndex = position;
                 ((ActionBarActivity)getActivity()).startSupportActionMode(actionModeCallback);
                 return false;
             }
@@ -175,6 +186,7 @@ public class CrimeListFragment extends ListFragment{
     public void onResume() {
         super.onResume();
         ((CrimeAdapter)getListAdapter()).notifyDataSetChanged();
+        deselectAllRows();
     }
 
     @Override
@@ -220,6 +232,12 @@ public class CrimeListFragment extends ListFragment{
         Intent i = new Intent(getActivity(), CrimePagerActivity.class);
         i.putExtra(CrimeFragment.EXTRA_CRIME_ID, crime.getmID());
         startActivityForResult(i, 0);
+    }
+
+    public void deselectAllRows() {
+        for (int i = 0; i < getListAdapter().getCount(); i++) {
+            listView.setItemChecked(i, false);
+        }
     }
 
 }
