@@ -76,8 +76,6 @@ public class CrimeListFragment extends ListFragment{
             ((ActionBarActivity)getActivity()).getSupportActionBar().setSubtitle(R.string.subtitle);
         }
 
-        //TODO: SELECT FIRST ROW IMMEDIATELY UPON ENTERING ACTION MODE
-
         actionModeCallback = new android.support.v7.view.ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(android.support.v7.view.ActionMode actionMode, Menu menu) {
