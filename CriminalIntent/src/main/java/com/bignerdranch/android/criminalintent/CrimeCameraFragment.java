@@ -5,12 +5,16 @@ import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by rajohns on 12/6/13.
@@ -38,7 +42,58 @@ public class CrimeCameraFragment extends Fragment {
         SurfaceHolder holder = surfaceView.getHolder();
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
+        holder.addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder surfaceHolder) {
+                try {
+                    if (camera != null) {
+                        camera.setPreviewDisplay(holder);
+                    }
+                } catch (IOException exception) {
+                    Log.e(TAG, "Error setting up preview display", exception);
+                }
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
+                if (camera == null) return;
+
+                Camera.Parameters parameters = camera.getParameters();
+                Camera.Size s = getBestSupprtedSize(parameters.getSupportedPreviewSizes(), width, height);
+                parameters.setPreviewSize(s.width, s.height);
+                camera.setParameters(parameters);
+                try {
+                    camera.startPreview();
+                } catch (Exception e) {
+                    Log.e(TAG, "Could not start preview", e);
+                    camera.release();
+                    camera = null;
+                }
+
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+                if (camera != null) {
+                    camera.stopPreview();
+                }
+            }
+        });
+
         return v;
+    }
+
+    private Camera.Size getBestSupprtedSize(List<Camera.Size> sizes, int width, int height) {
+        Camera.Size bestSize = sizes.get(0);
+        int largestArea = bestSize.width * bestSize.height;
+        for (Camera.Size s : sizes) {
+            int area = s.width * s.height;
+            if (area > largestArea) {
+                bestSize = s;
+                largestArea = area;
+            }
+        }
+        return bestSize;
     }
 
     @Override
