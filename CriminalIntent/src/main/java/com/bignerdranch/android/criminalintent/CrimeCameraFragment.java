@@ -39,7 +39,7 @@ public class CrimeCameraFragment extends Fragment {
         });
 
         surfaceView = (SurfaceView)v.findViewById(R.id.crime_camera_surfaceView);
-        SurfaceHolder holder = surfaceView.getHolder();
+        final SurfaceHolder holder = surfaceView.getHolder();
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
         holder.addCallback(new SurfaceHolder.Callback() {
@@ -96,6 +96,7 @@ public class CrimeCameraFragment extends Fragment {
         return bestSize;
     }
 
+    //TODO: FIGURE OUT WHY CAMERA.OPEN IS CAUSING CRASH. ALREADY SET UP CAM ON AVD
     @Override
     public void onResume() {
         super.onResume();
