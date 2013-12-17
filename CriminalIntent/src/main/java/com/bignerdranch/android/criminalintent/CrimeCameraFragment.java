@@ -96,7 +96,6 @@ public class CrimeCameraFragment extends Fragment {
         return bestSize;
     }
 
-    //TODO: FIGURE OUT WHY CAMERA.OPEN IS CAUSING CRASH. ALREADY SET UP CAM ON AVD
     @Override
     public void onResume() {
         super.onResume();
