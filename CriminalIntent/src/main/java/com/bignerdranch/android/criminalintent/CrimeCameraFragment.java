@@ -24,6 +24,14 @@ public class CrimeCameraFragment extends Fragment {
 
     private Camera camera;
     private SurfaceView surfaceView;
+    private View mProgressContainer;
+
+    private Camera.ShutterCallback mShutterCallback = new Camera.ShutterCallback() {
+        @Override
+        public void onShutter() {
+            mProgressContainer.setVisibility(View.VISIBLE);
+        }
+    };
 
     @Override
     @SuppressWarnings("deprecation")
@@ -79,6 +87,9 @@ public class CrimeCameraFragment extends Fragment {
                 }
             }
         });
+
+        mProgressContainer = v.findViewById(R.id.crime_camera_progressContainer);
+        mProgressContainer.setVisibility(View.INVISIBLE);
 
         return v;
     }
