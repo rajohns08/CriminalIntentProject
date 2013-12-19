@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -37,18 +39,22 @@ import java.util.UUID;
  * Activity for Viewing setting/viewing an individual crime's details
  */
 public class CrimeFragment extends Fragment {
+    private static final String TAG = "CrimeFragment";
 
     public static final String EXTRA_CRIME_ID = "com.bignerdranch.android.criminalintent.crime_id";
     private static final String DIALOG_DATE = "date";
     private static final String DIALOG_TIME = "time";
+    private static final String DIALOG_IMAGE = "image";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
+    private static final int REQUEST_PHOTO = 2;
 
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateAndTimeButton;
     private CheckBox mSolvedCheckbox;
     private ImageButton mPhotoButton;
+    private ImageView mPhotoView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -135,7 +141,23 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), CrimeCameraActivity.class);
-                startActivity(i);
+                startActivityForResult(i, REQUEST_PHOTO);
+            }
+        });
+
+        mPhotoView = (ImageView)v.findViewById(R.id.crime_imageView);
+        mPhotoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Photo p = mCrime.getmPhoto();
+                if (p == null) {
+                    return;
+                }
+
+                //TODO: FIGURE OUT WHY SHOW METHOD NOT RECOGNIZED
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
+                ImageFragment.newInstance(path).show(fm, DIALOG_IMAGE);
             }
         });
 
@@ -145,6 +167,30 @@ public class CrimeFragment extends Fragment {
         }
 
         return v;
+    }
+
+    private void showPhoto() {
+        Photo p = mCrime.getmPhoto();
+        BitmapDrawable b = null;
+
+        if (p != null) {
+            String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
+            b = PictureUtils.getScaledDrawable(getActivity(), path);
+        }
+
+        mPhotoView.setImageDrawable(b);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        showPhoto();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        PictureUtils.cleanImageView(mPhotoView);
     }
 
     public static CrimeFragment newInstance(UUID crimeId) {
@@ -170,6 +216,14 @@ public class CrimeFragment extends Fragment {
             Date time = (Date)data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
             mCrime.setmTime(time);
             updateDateAndTime();
+        }
+        else if (requestCode == REQUEST_PHOTO) {
+            String filename = data.getStringExtra(CrimeCameraFragment.EXTRA_PHOTO_FILENAME);
+            if (filename != null) {
+                Photo p = new Photo(filename);
+                mCrime.setmPhoto(p);
+                showPhoto();
+            }
         }
     }
 
