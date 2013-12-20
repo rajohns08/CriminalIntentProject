@@ -7,6 +7,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -154,7 +157,6 @@ public class CrimeFragment extends Fragment {
                     return;
                 }
 
-                //TODO: FIGURE OUT WHY SHOW METHOD NOT RECOGNIZED
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
                 ImageFragment.newInstance(path).show(fm, DIALOG_IMAGE);
@@ -176,9 +178,23 @@ public class CrimeFragment extends Fragment {
         if (p != null) {
             String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
             b = PictureUtils.getScaledDrawable(getActivity(), path);
-        }
 
-        mPhotoView.setImageDrawable(b);
+            if (p.getmRotation() == Surface.ROTATION_0) {
+                Matrix matrix = new Matrix();
+                matrix.postRotate(90);
+                Bitmap rotatedBitmap = Bitmap.createBitmap(b.getBitmap(), 0, 0, b.getIntrinsicWidth(), b.getIntrinsicHeight(), matrix, true);
+                mPhotoView.setImageBitmap(rotatedBitmap);
+            }
+            else if (p.getmRotation() == Surface.ROTATION_270) {
+                Matrix matrix = new Matrix();
+                matrix.postRotate(180);
+                Bitmap rotatedBitmap = Bitmap.createBitmap(b.getBitmap(), 0, 0, b.getIntrinsicWidth(), b.getIntrinsicHeight(), matrix, true);
+                mPhotoView.setImageBitmap(rotatedBitmap);
+            }
+            else {
+                mPhotoView.setImageDrawable(b);
+            }
+        }
     }
 
     @Override
@@ -219,8 +235,11 @@ public class CrimeFragment extends Fragment {
         }
         else if (requestCode == REQUEST_PHOTO) {
             String filename = data.getStringExtra(CrimeCameraFragment.EXTRA_PHOTO_FILENAME);
+            int rotation = data.getIntExtra(CrimeCameraFragment.EXTRA_PHOTO_ORIENTATION, 0);
+
             if (filename != null) {
                 Photo p = new Photo(filename);
+                p.setmRotation(rotation);
                 mCrime.setmPhoto(p);
                 showPhoto();
             }

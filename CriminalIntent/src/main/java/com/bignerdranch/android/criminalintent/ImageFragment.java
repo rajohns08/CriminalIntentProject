@@ -1,8 +1,11 @@
 package com.bignerdranch.android.criminalintent;
 
 import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +14,7 @@ import android.widget.ImageView;
 /**
  * Created by rajohns on 12/19/13.
  */
-public class ImageFragment extends DialogFragment {
+public class ImageFragment extends android.support.v4.app.DialogFragment {
     public static final String EXTRA_IMAGE_PATH = "com.bignerdranch.android.criminalintent.image_path";
 
     public static ImageFragment newInstance(String imagePath) {
@@ -32,6 +35,8 @@ public class ImageFragment extends DialogFragment {
         mImageView = new ImageView(getActivity());
         String path = (String)getArguments().getSerializable(EXTRA_IMAGE_PATH);
         BitmapDrawable image = PictureUtils.getScaledDrawable(getActivity(), path);
+
+        //TODO: ROTATE image BASED ON THE PHOTOS ROTATION ANGLE LIKE DONE IN CRIMEFRAGMENT SHOWPHOTO FUNCTION. NEED TO KNOW WHICH CRIME/PHOTO TO BE ABLE TO DO THIS THOUGH
 
         mImageView.setImageDrawable(image);
 

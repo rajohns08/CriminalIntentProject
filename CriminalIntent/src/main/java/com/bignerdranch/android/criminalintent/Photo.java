@@ -9,6 +9,7 @@ import org.json.JSONObject;
 public class Photo {
     private static final String JSON_FILENAME = "filename";
     private String mFilename;
+    private int mRotation;
 
     public Photo(String filename) {
         mFilename = filename;
@@ -26,5 +27,13 @@ public class Photo {
 
     public String getFilename() {
         return mFilename;
+    }
+
+    public int getmRotation() {
+        return mRotation;
+    }
+
+    public void setmRotation(int mRotation) {
+        this.mRotation = mRotation;
     }
 }

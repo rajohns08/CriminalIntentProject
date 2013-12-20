@@ -4,16 +4,21 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.OrientationEventListener;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import java.io.FileOutputStream;
@@ -27,10 +32,12 @@ import java.util.UUID;
 public class CrimeCameraFragment extends Fragment {
     private static final String TAG = "CrimeCameraFragment";
     public static final String EXTRA_PHOTO_FILENAME = "com.bignerdranch.android.criminalintent.photo_filename";
+    public static final String EXTRA_PHOTO_ORIENTATION = "com.bignerdranch.android.criminalintent.photo_orientation";
 
     private Camera camera;
     private SurfaceView surfaceView;
     private View mProgressContainer;
+    private int mRotation;
 
     private Camera.ShutterCallback mShutterCallback = new Camera.ShutterCallback() {
         @Override
@@ -57,6 +64,8 @@ public class CrimeCameraFragment extends Fragment {
             if (success) {
                 Intent i = new Intent();
                 i.putExtra(EXTRA_PHOTO_FILENAME, filename);
+                i.putExtra(EXTRA_PHOTO_ORIENTATION, mRotation);
+
                 getActivity().setResult(Activity.RESULT_OK, i);
                 Log.i(TAG, "JPEG saved at " + filename);
             }
@@ -80,6 +89,9 @@ public class CrimeCameraFragment extends Fragment {
                 if (camera != null) {
                     camera.takePicture(mShutterCallback, null, mJpegCallback);
                 }
+
+
+
             }
         });
 
@@ -109,6 +121,20 @@ public class CrimeCameraFragment extends Fragment {
                 s = getBestSupprtedSize(parameters.getSupportedPictureSizes(), width, height);
                 parameters.setPictureSize(s.width, s.height);
                 camera.setParameters(parameters);
+
+                Display display = ((WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+                mRotation = display.getRotation();
+
+                if (mRotation == Surface.ROTATION_0) {
+                    camera.setDisplayOrientation(90);
+                }
+                else if (mRotation == Surface.ROTATION_270) {
+                    camera.setDisplayOrientation(180);
+                }
+                else if (mRotation == Surface.ROTATION_90) {
+                    camera.setDisplayOrientation(0);
+                }
+
                 try {
                     camera.startPreview();
                 } catch (Exception e) {
