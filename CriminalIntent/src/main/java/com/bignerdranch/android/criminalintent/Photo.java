@@ -10,6 +10,7 @@ public class Photo {
     private static final String JSON_FILENAME = "filename";
     private String mFilename;
     private int mRotation;
+    private boolean mAlreadyRotated;
 
     public Photo(String filename) {
         mFilename = filename;
@@ -35,5 +36,13 @@ public class Photo {
 
     public void setmRotation(int mRotation) {
         this.mRotation = mRotation;
+    }
+
+    public boolean ismAlreadyRotated() {
+        return mAlreadyRotated;
+    }
+
+    public void setmAlreadyRotated(boolean mAlreadyRotated) {
+        this.mAlreadyRotated = mAlreadyRotated;
     }
 }

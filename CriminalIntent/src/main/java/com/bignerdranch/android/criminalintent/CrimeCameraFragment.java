@@ -31,9 +31,11 @@ import java.util.UUID;
  */
 public class CrimeCameraFragment extends Fragment {
     private static final String TAG = "CrimeCameraFragment";
+    public static final String EXTRA_CRIME_ID = "com.bignerdranch.android.criminalintent.crime_id";
     public static final String EXTRA_PHOTO_FILENAME = "com.bignerdranch.android.criminalintent.photo_filename";
     public static final String EXTRA_PHOTO_ORIENTATION = "com.bignerdranch.android.criminalintent.photo_orientation";
 
+    private Crime mCrime;
     private Camera camera;
     private SurfaceView surfaceView;
     private View mProgressContainer;
@@ -78,6 +80,16 @@ public class CrimeCameraFragment extends Fragment {
     };
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+
+        //TODO: 1. FIGURE OUT HOW TO SUCCESSFULLY PASS AND THEN ACCEPT HERE THE UUID OF THE CRIME SO THAT THIS FILE CAN USE THE UUID TO SETMALREADYROTATED(FALSE) IN THE TAKEPICTURE ONCLICK
+        UUID crimeId = (UUID)getArguments().getSerializable(EXTRA_CRIME_ID);
+        mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
+    }
+
+    @Override
     @SuppressWarnings("deprecation")
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_crime_camera, parent, false);
@@ -90,8 +102,7 @@ public class CrimeCameraFragment extends Fragment {
                     camera.takePicture(mShutterCallback, null, mJpegCallback);
                 }
 
-
-
+                mCrime.getmPhoto().setmAlreadyRotated(false);
             }
         });
 
