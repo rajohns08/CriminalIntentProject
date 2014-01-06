@@ -1,10 +1,8 @@
 package com.bignerdranch.android.criminalintent;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -85,7 +82,8 @@ public class CrimeCameraFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         //TODO: 1. FIGURE OUT HOW TO SUCCESSFULLY PASS AND THEN ACCEPT HERE THE UUID OF THE CRIME SO THAT THIS FILE CAN USE THE UUID TO SETMALREADYROTATED(FALSE) IN THE TAKEPICTURE ONCLICK
-        UUID crimeId = (UUID)getArguments().getSerializable(EXTRA_CRIME_ID);
+        // the issue here is that I'm trying to pass data between two fragments. Communication between fragments is apparently supposed to be done via an activity.
+        UUID crimeId = (UUID)getIntent().getSerializableExtra(CrimeFragment.EXTRA_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
     }
 
