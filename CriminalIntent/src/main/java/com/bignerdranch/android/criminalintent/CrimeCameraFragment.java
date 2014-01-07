@@ -81,9 +81,9 @@ public class CrimeCameraFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        //TODO: 1. FIGURE OUT HOW TO SUCCESSFULLY PASS AND THEN ACCEPT HERE THE UUID OF THE CRIME SO THAT THIS FILE CAN USE THE UUID TO SETMALREADYROTATED(FALSE) IN THE TAKEPICTURE ONCLICK
+        //TODO: 1. MAKE SURE THAT I HAVE RECEIVED THE CRIMEID CORRECTLY HERE SO THAT I CAN SETMALREADYROTATED(FALSE) IN TAKEPICTUREBUTTON ONCLICK. APPARENTLY CRIMEID IS NULL HERE BUTY WHY? THEN VERIFY THAT PICS ARE ROTATED CORRECTLY ON PHONE.
         // the issue here is that I'm trying to pass data between two fragments. Communication between fragments is apparently supposed to be done via an activity.
-        UUID crimeId = (UUID)getIntent().getSerializableExtra(CrimeFragment.EXTRA_CRIME_ID);
+        UUID crimeId = (UUID)getArguments().getSerializable(EXTRA_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
     }
 
@@ -200,5 +200,15 @@ public class CrimeCameraFragment extends Fragment {
             camera.release();
             camera = null;
         }
+    }
+
+    public static CrimeCameraFragment newInstance(UUID crimeId) {
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_CRIME_ID, crimeId);
+
+        CrimeCameraFragment fragment = new CrimeCameraFragment();
+        fragment.setArguments(args);
+
+        return fragment;
     }
 }
