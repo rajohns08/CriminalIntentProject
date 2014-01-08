@@ -176,7 +176,8 @@ public class CrimeFragment extends Fragment {
         Photo p = mCrime.getmPhoto();
         BitmapDrawable b = null;
 
-        //TODO: FIGURE OUT WHY THUMBNAIL PHOTO ROTATES INCORRECTLY FOR LANDSCAPE PICTURE AFTER RELAUNCHING APP
+        //TODO: 1. FIGURE OUT WHY THUMBNAIL PHOTO ROTATES INCORRECTLY FOR LANDSCAPE PICTURE AFTER RELAUNCHING APP
+        //TODO: IF I UNCOMMENT THE IF STATEMENTS AND COMMENT THE LINE DIRECTLY BELOW (THE FIX I CAME UP WITH FOR ABOVE) WHY DOES THIS FUNCTION GET CALLED SO MANY TIMES WITH DIFFERENT RESULTS 
         // it is probably because after the image was successfully rotated after taking it, the program doesn't know it has already been successfully rotated the next time the app is launched. need to say boolean has been rotated.
         // need to make already rotated to false every time a new pic is taken
 
@@ -187,7 +188,8 @@ public class CrimeFragment extends Fragment {
             if (p.getmRotation() == Surface.ROTATION_0) {
                 Matrix matrix = new Matrix();
 
-                if (!mCrime.getmPhoto().ismAlreadyRotated()) matrix.postRotate(90);
+//                if (!mCrime.getmPhoto().ismAlreadyRotated()) matrix.postRotate(90);
+                matrix.postRotate(90);
 
                 Bitmap rotatedBitmap = Bitmap.createBitmap(b.getBitmap(), 0, 0, b.getIntrinsicWidth(), b.getIntrinsicHeight(), matrix, true);
                 mPhotoView.setImageBitmap(rotatedBitmap);
@@ -196,7 +198,8 @@ public class CrimeFragment extends Fragment {
             else if (p.getmRotation() == Surface.ROTATION_270) {
                 Matrix matrix = new Matrix();
 
-                if (!mCrime.getmPhoto().ismAlreadyRotated()) matrix.postRotate(180);
+//                if (!mCrime.getmPhoto().ismAlreadyRotated()) matrix.postRotate(180);
+                matrix.postRotate(180);
 
                 Bitmap rotatedBitmap = Bitmap.createBitmap(b.getBitmap(), 0, 0, b.getIntrinsicWidth(), b.getIntrinsicHeight(), matrix, true);
                 mPhotoView.setImageBitmap(rotatedBitmap);

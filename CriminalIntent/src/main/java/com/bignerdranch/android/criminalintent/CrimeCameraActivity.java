@@ -22,7 +22,7 @@ public class CrimeCameraActivity extends SingleFragmentActivity {
 
         super.onCreate(savedInstanceState);
 
-        crimeId = (UUID)getIntent().getSerializableExtra(CrimeFragment.EXTRA_CRIME_ID);
+//        crimeId = (UUID)getIntent().getSerializableExtra(CrimeFragment.EXTRA_CRIME_ID);
     }
 
     @Override
@@ -31,6 +31,7 @@ public class CrimeCameraActivity extends SingleFragmentActivity {
 //        bundle.putSerializable("hey", crimeId);
 //        CrimeCameraFragment crimeCameraFragment = new CrimeCameraFragment();
 //        crimeCameraFragment.setArguments();
+        crimeId = (UUID)getIntent().getSerializableExtra(CrimeFragment.EXTRA_CRIME_ID);
         return CrimeCameraFragment.newInstance(crimeId);
     }
 }
