@@ -98,7 +98,9 @@ public class CrimeCameraFragment extends Fragment {
                     camera.takePicture(mShutterCallback, null, mJpegCallback);
                 }
 
-                mCrime.getmPhoto().setmAlreadyRotated(false);
+                if (mCrime.getmPhoto() != null) {
+                    mCrime.getmPhoto().setmAlreadyRotated(false);
+                }
             }
         });
 

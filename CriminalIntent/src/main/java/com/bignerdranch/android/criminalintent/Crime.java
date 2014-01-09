@@ -62,8 +62,6 @@ public class Crime {
         json.put(JSON_DATEFORMAT, dateFormat.toPattern());
         json.put(JSON_TIMEFORMAT, getTimeFormat().toPattern());
 
-        // TODO: FIGURE OUT HOW TO DELETE PHOTOS
-
         if (mPhoto != null) {
             json.put(JSON_PHOTO, mPhoto.toJSON());
         }
