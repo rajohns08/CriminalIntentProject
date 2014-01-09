@@ -38,7 +38,6 @@ public class PictureUtils {
         options = new BitmapFactory.Options();
         options.inSampleSize = inSampleSize;
 
-        // TODO: FIGURE OUT OUTOFMEMORYEXCEPTION WITH BELOW LINE
         Bitmap bitmap = BitmapFactory.decodeFile(path, options);
 
         return new BitmapDrawable(a.getResources(), bitmap);

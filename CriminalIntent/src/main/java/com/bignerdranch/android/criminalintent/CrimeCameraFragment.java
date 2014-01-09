@@ -26,30 +26,29 @@ import java.util.UUID;
 /**
  * Created by rajohns on 12/6/13.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class CrimeCameraFragment extends Fragment {
     private static final String TAG = "CrimeCameraFragment";
-    public static final String EXTRA_CRIME_ID = "com.bignerdranch.android.criminalintent.crime_id";
     public static final String EXTRA_PHOTO_FILENAME = "com.bignerdranch.android.criminalintent.photo_filename";
     public static final String EXTRA_PHOTO_ORIENTATION = "com.bignerdranch.android.criminalintent.photo_orientation";
 
-    private Crime mCrime;
     private Camera camera;
     private SurfaceView surfaceView;
     private View mProgressContainer;
     private int mRotation;
 
-    private Camera.ShutterCallback mShutterCallback = new Camera.ShutterCallback() {
+    private final Camera.ShutterCallback mShutterCallback = new Camera.ShutterCallback() {
         @Override
         public void onShutter() {
             mProgressContainer.setVisibility(View.VISIBLE);
         }
     };
 
-    private Camera.PictureCallback mJpegCallback = new Camera.PictureCallback() {
+    private final Camera.PictureCallback mJpegCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
             String filename = UUID.randomUUID().toString() + ".jpg";
-            FileOutputStream os = null;
+            FileOutputStream os;
             boolean success = true;
 
             try {
@@ -77,98 +76,98 @@ public class CrimeCameraFragment extends Fragment {
     };
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-
-        UUID crimeId = (UUID)getArguments().getSerializable(EXTRA_CRIME_ID);
-        mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
-    }
-
-    @Override
     @SuppressWarnings("deprecation")
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_crime_camera, parent, false);
-        Button takePictureButton = (Button)v.findViewById(R.id.crime_camera_takePictureButton);
+        Button takePictureButton = null;
+        if (v != null) {
+            takePictureButton = (Button)v.findViewById(R.id.crime_camera_takePictureButton);
+        }
 
-        takePictureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (camera != null) {
-                    camera.takePicture(mShutterCallback, null, mJpegCallback);
-                }
-
-//                if (mCrime.getmPhoto() != null) {
-//                    mCrime.getmPhoto().setmAlreadyRotated(false);
-//                }
-            }
-        });
-
-        surfaceView = (SurfaceView)v.findViewById(R.id.crime_camera_surfaceView);
-        final SurfaceHolder holder = surfaceView.getHolder();
-        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
-        holder.addCallback(new SurfaceHolder.Callback() {
-            @Override
-            public void surfaceCreated(SurfaceHolder surfaceHolder) {
-                try {
+        if (takePictureButton != null) {
+            takePictureButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                     if (camera != null) {
-                        camera.setPreviewDisplay(holder);
+                        camera.takePicture(mShutterCallback, null, mJpegCallback);
                     }
-                } catch (IOException exception) {
-                    Log.e(TAG, "Error setting up preview display", exception);
                 }
-            }
+            });
+        }
 
-            @Override
-            public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
-                if (camera == null) return;
+        if (v != null) {
+            surfaceView = (SurfaceView)v.findViewById(R.id.crime_camera_surfaceView);
+        }
+        final SurfaceHolder holder = surfaceView.getHolder();
+        if (holder != null) {
+            holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        }
 
-                Camera.Parameters parameters = camera.getParameters();
-                Camera.Size s = getBestSupprtedSize(parameters.getSupportedPreviewSizes(), width, height);
-                parameters.setPreviewSize(s.width, s.height);
-                s = getBestSupprtedSize(parameters.getSupportedPictureSizes(), width, height);
-                parameters.setPictureSize(s.width, s.height);
-                camera.setParameters(parameters);
-
-                Display display = ((WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-                mRotation = display.getRotation();
-
-                if (mRotation == Surface.ROTATION_0) {          // NORMAL PORTRAIT
-                    camera.setDisplayOrientation(90);
-                }
-                else if (mRotation == Surface.ROTATION_270) {   // WEIRD LANDSCAPE
-                    camera.setDisplayOrientation(180);
-                }
-                else if (mRotation == Surface.ROTATION_90) {    // NORMAL LANDSCAPE
-                    camera.setDisplayOrientation(0);
+        if (holder != null) {
+            holder.addCallback(new SurfaceHolder.Callback() {
+                @Override
+                public void surfaceCreated(SurfaceHolder surfaceHolder) {
+                    try {
+                        if (camera != null) {
+                            camera.setPreviewDisplay(holder);
+                        }
+                    } catch (IOException exception) {
+                        Log.e(TAG, "Error setting up preview display", exception);
+                    }
                 }
 
-                try {
-                    camera.startPreview();
-                } catch (Exception e) {
-                    Log.e(TAG, "Could not start preview", e);
-                    camera.release();
-                    camera = null;
+                @Override
+                public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
+                    if (camera == null) return;
+
+                    Camera.Parameters parameters = camera.getParameters();
+                    Camera.Size s = getBestSupportedSize(parameters.getSupportedPreviewSizes());
+                    parameters.setPreviewSize(s.width, s.height);
+                    s = getBestSupportedSize(parameters.getSupportedPictureSizes());
+                    parameters.setPictureSize(s.width, s.height);
+                    camera.setParameters(parameters);
+
+                    Display display = ((WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+                    mRotation = display.getRotation();
+
+                    if (mRotation == Surface.ROTATION_0) {          // NORMAL PORTRAIT
+                        camera.setDisplayOrientation(90);
+                    }
+                    else if (mRotation == Surface.ROTATION_270) {   // WEIRD LANDSCAPE
+                        camera.setDisplayOrientation(180);
+                    }
+                    else if (mRotation == Surface.ROTATION_90) {    // NORMAL LANDSCAPE
+                        camera.setDisplayOrientation(0);
+                    }
+
+                    try {
+                        camera.startPreview();
+                    } catch (Exception e) {
+                        Log.e(TAG, "Could not start preview", e);
+                        camera.release();
+                        camera = null;
+                    }
+
                 }
 
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-                if (camera != null) {
-                    camera.stopPreview();
+                @Override
+                public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+                    if (camera != null) {
+                        camera.stopPreview();
+                    }
                 }
-            }
-        });
+            });
+        }
 
-        mProgressContainer = v.findViewById(R.id.crime_camera_progressContainer);
+        if (v != null) {
+            mProgressContainer = v.findViewById(R.id.crime_camera_progressContainer);
+        }
         mProgressContainer.setVisibility(View.INVISIBLE);
 
         return v;
     }
 
-    private Camera.Size getBestSupprtedSize(List<Camera.Size> sizes, int width, int height) {
+    private Camera.Size getBestSupportedSize(List<Camera.Size> sizes) {
         Camera.Size bestSize = sizes.get(0);
         int largestArea = bestSize.width * bestSize.height;
         for (Camera.Size s : sizes) {
@@ -200,15 +199,5 @@ public class CrimeCameraFragment extends Fragment {
             camera.release();
             camera = null;
         }
-    }
-
-    public static CrimeCameraFragment newInstance(UUID crimeId) {
-        Bundle args = new Bundle();
-        args.putSerializable(EXTRA_CRIME_ID, crimeId);
-
-        CrimeCameraFragment fragment = new CrimeCameraFragment();
-        fragment.setArguments(args);
-
-        return fragment;
     }
 }

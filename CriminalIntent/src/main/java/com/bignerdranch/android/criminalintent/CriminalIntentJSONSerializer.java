@@ -24,8 +24,8 @@ import java.util.ArrayList;
  * Created by rajohns on 9/24/13.
  */
 public class CriminalIntentJSONSerializer {
-    private Context mContext;
-    private String mFilename;
+    private final Context mContext;
+    private final String mFilename;
     private static final boolean useExternalStorage = false;
 
     public CriminalIntentJSONSerializer(Context c, String f) {
@@ -112,7 +112,7 @@ public class CriminalIntentJSONSerializer {
                 InputStream in = mContext.openFileInput(mFilename);
                 reader = new BufferedReader(new InputStreamReader(in));
                 StringBuilder jsonString = new StringBuilder();
-                String line = null;
+                String line;
                 while ((line = reader.readLine()) != null) {
                     jsonString.append(line);
                 }
@@ -121,7 +121,7 @@ public class CriminalIntentJSONSerializer {
                 for (int i = 0; i < array.length(); i++) {
                     crimes.add(new Crime(array.getJSONObject(i)));
                 }
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException ignored) {
 
             } finally {
                 if (reader != null) {

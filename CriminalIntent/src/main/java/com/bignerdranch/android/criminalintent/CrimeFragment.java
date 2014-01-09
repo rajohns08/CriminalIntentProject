@@ -1,5 +1,4 @@
 package com.bignerdranch.android.criminalintent;
-// MAIN BRANCH!!!! AFTER FIXING GITIGNORE AGAIN TEST
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -32,8 +31,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -55,8 +52,6 @@ public class CrimeFragment extends Fragment {
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateAndTimeButton;
-    private CheckBox mSolvedCheckbox;
-    private ImageButton mPhotoButton;
     private ImageView mPhotoView;
 
     @Override
@@ -78,11 +73,15 @@ public class CrimeFragment extends Fragment {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             if (NavUtils.getParentActivityName(getActivity()) != null) {
-                getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+                if (getActivity().getActionBar() != null) {
+                    getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+                }
             }
         }
 
-        mTitleField = (EditText)v.findViewById(R.id.crime_title);
+        if (v != null) {
+            mTitleField = (EditText)v.findViewById(R.id.crime_title);
+        }
         mTitleField.setText(mCrime.getmTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -101,7 +100,9 @@ public class CrimeFragment extends Fragment {
             }
         });
 
-        mDateAndTimeButton = (Button)v.findViewById(R.id.crime_date_and_time);
+        if (v != null) {
+            mDateAndTimeButton = (Button)v.findViewById(R.id.crime_date_and_time);
+        }
         updateDateAndTime();
         mDateAndTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,26 +131,38 @@ public class CrimeFragment extends Fragment {
             }
         });
 
-        mSolvedCheckbox = (CheckBox)v.findViewById(R.id.crime_solved);
-        mSolvedCheckbox.setChecked(mCrime.ismSolved());
-        mSolvedCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                mCrime.setmSolved(b);
-            }
-        });
+        CheckBox mSolvedCheckbox = null;
+        if (v != null) {
+            mSolvedCheckbox = (CheckBox) v.findViewById(R.id.crime_solved);
+        }
 
-        mPhotoButton = (ImageButton)v.findViewById(R.id.crime_imageButton);
-        mPhotoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), CrimeCameraActivity.class);
-                i.putExtra(EXTRA_CRIME_ID, mCrime.getmID());
-                startActivityForResult(i, REQUEST_PHOTO);
-            }
-        });
+        if (mSolvedCheckbox != null) {
+            mSolvedCheckbox.setChecked(mCrime.ismSolved());
+            mSolvedCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    mCrime.setmSolved(b);
+                }
+            });
+        }
 
-        mPhotoView = (ImageView)v.findViewById(R.id.crime_imageView);
+        ImageButton mPhotoButton = null;
+        if (v != null) {
+            mPhotoButton = (ImageButton) v.findViewById(R.id.crime_imageButton);
+        }
+        if (mPhotoButton != null) {
+            mPhotoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getActivity(), CrimeCameraActivity.class);
+                    startActivityForResult(i, REQUEST_PHOTO);
+                }
+            });
+        }
+
+        if (v != null) {
+            mPhotoView = (ImageView)v.findViewById(R.id.crime_imageView);
+        }
         mPhotoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,13 +173,17 @@ public class CrimeFragment extends Fragment {
 
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
-                ImageFragment.newInstance(path).show(fm, DIALOG_IMAGE);
+                ImageFragment.newInstance(path, p.getmRotation()).show(fm, DIALOG_IMAGE);
             }
         });
 
         PackageManager pm = getActivity().getPackageManager();
-        if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && !pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)) {
-            mPhotoButton.setEnabled(false);
+        if (pm != null) {
+            if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && !pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)) {
+                if (mPhotoButton != null) {
+                    mPhotoButton.setEnabled(false);
+                }
+            }
         }
 
         return v;
@@ -174,35 +191,24 @@ public class CrimeFragment extends Fragment {
 
     private void showPhoto() {
         Photo p = mCrime.getmPhoto();
-        BitmapDrawable b = null;
-
-        // TODO: 1. WHY DOESN'T PORTRAIT ROTATE PROPERLY?
 
         if (p != null) {
             String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
-            b = PictureUtils.getScaledDrawable(getActivity(), path);
+            BitmapDrawable b = PictureUtils.getScaledDrawable(getActivity(), path);
 
             if (p.getmRotation() == Surface.ROTATION_0) {           // NORMAL PORTRAIT
                 Matrix matrix = new Matrix();
 
-//                if (!mCrime.getmPhoto().ismAlreadyRotated()) {
-//                    matrix.postRotate(90);
-//                }
                 matrix.postRotate(90);
                 Bitmap rotatedBitmap = Bitmap.createBitmap(b.getBitmap(), 0, 0, b.getIntrinsicWidth(), b.getIntrinsicHeight(), matrix, true);
                 mPhotoView.setImageBitmap(rotatedBitmap);
-//                mCrime.getmPhoto().setmAlreadyRotated(true);
             }
             else if (p.getmRotation() == Surface.ROTATION_270) {    // WEIRD LANDSCAPE
                 Matrix matrix = new Matrix();
 
-//                if (!mCrime.getmPhoto().ismAlreadyRotated()) {
-//                    matrix.postRotate(180);
-//                }
                 matrix.postRotate(180);
                 Bitmap rotatedBitmap = Bitmap.createBitmap(b.getBitmap(), 0, 0, b.getIntrinsicWidth(), b.getIntrinsicHeight(), matrix, true);
                 mPhotoView.setImageBitmap(rotatedBitmap);
-//                mCrime.getmPhoto().setmAlreadyRotated(true);
             }
             else {                                                  // NORMAL LANDSCAPE
                 mPhotoView.setImageDrawable(b);
@@ -266,7 +272,7 @@ public class CrimeFragment extends Fragment {
         }
     }
 
-    public void updateDateAndTime() {
+    void updateDateAndTime() {
         mDateAndTimeButton.setText(mCrime.getDateFormat().format(mCrime.getmDate()) + ", " +  mCrime.getTimeFormat().format(mCrime.getmTime()));
     }
 
@@ -323,7 +329,7 @@ public class CrimeFragment extends Fragment {
         CrimeLab.get(getActivity()).saveCrimes();
     }
 
-    public void deletePhoto(String filename) {
+    void deletePhoto(String filename) {
         if (getActivity().deleteFile(filename)) {
             Log.d(TAG, filename + " deleted from disk.");
         }

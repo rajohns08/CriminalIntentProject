@@ -3,7 +3,6 @@ package com.bignerdranch.android.criminalintent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
