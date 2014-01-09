@@ -98,9 +98,9 @@ public class CrimeCameraFragment extends Fragment {
                     camera.takePicture(mShutterCallback, null, mJpegCallback);
                 }
 
-                if (mCrime.getmPhoto() != null) {
-                    mCrime.getmPhoto().setmAlreadyRotated(false);
-                }
+//                if (mCrime.getmPhoto() != null) {
+//                    mCrime.getmPhoto().setmAlreadyRotated(false);
+//                }
             }
         });
 
@@ -134,13 +134,13 @@ public class CrimeCameraFragment extends Fragment {
                 Display display = ((WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
                 mRotation = display.getRotation();
 
-                if (mRotation == Surface.ROTATION_0) {
+                if (mRotation == Surface.ROTATION_0) {          // NORMAL PORTRAIT
                     camera.setDisplayOrientation(90);
                 }
-                else if (mRotation == Surface.ROTATION_270) {
+                else if (mRotation == Surface.ROTATION_270) {   // WEIRD LANDSCAPE
                     camera.setDisplayOrientation(180);
                 }
-                else if (mRotation == Surface.ROTATION_90) {
+                else if (mRotation == Surface.ROTATION_90) {    // NORMAL LANDSCAPE
                     camera.setDisplayOrientation(0);
                 }
 

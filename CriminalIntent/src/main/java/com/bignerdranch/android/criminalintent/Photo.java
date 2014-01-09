@@ -8,9 +8,11 @@ import org.json.JSONObject;
  */
 public class Photo {
     private static final String JSON_FILENAME = "filename";
+    private static final String JSON_ROTATION = "rotation";
+    private static final String JSON_ALREADY_ROTATED = "alreadyRotated";
     private String mFilename;
     private int mRotation;
-    private boolean mAlreadyRotated;
+//    private boolean mAlreadyRotated;
 
     public Photo(String filename) {
         mFilename = filename;
@@ -18,11 +20,15 @@ public class Photo {
 
     public Photo(JSONObject json) throws JSONException {
         mFilename = json.getString(JSON_FILENAME);
+        mRotation = json.getInt(JSON_ROTATION);
+//        mAlreadyRotated = json.getBoolean(JSON_ALREADY_ROTATED);
     }
 
     public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(JSON_FILENAME, mFilename);
+        json.put(JSON_ROTATION, mRotation);
+//        json.put(JSON_ALREADY_ROTATED, mAlreadyRotated);
         return json;
     }
 
@@ -38,11 +44,11 @@ public class Photo {
         this.mRotation = mRotation;
     }
 
-    public boolean ismAlreadyRotated() {
-        return mAlreadyRotated;
-    }
-
-    public void setmAlreadyRotated(boolean mAlreadyRotated) {
-        this.mAlreadyRotated = mAlreadyRotated;
-    }
+//    public boolean ismAlreadyRotated() {
+//        return mAlreadyRotated;
+//    }
+//
+//    public void setmAlreadyRotated(boolean mAlreadyRotated) {
+//        this.mAlreadyRotated = mAlreadyRotated;
+//    }
 }

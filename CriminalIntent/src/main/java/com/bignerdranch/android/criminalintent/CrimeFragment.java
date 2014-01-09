@@ -176,41 +176,35 @@ public class CrimeFragment extends Fragment {
         Photo p = mCrime.getmPhoto();
         BitmapDrawable b = null;
 
-        //TODO: FIGURE OUT WHY THUMBNAIL PHOTO ROTATES INCORRECTLY FOR LANDSCAPE PICTURE AFTER RELAUNCHING APP
-        //TODO: IF I UNCOMMENT THE IF STATEMENTS AND COMMENT THE LINE DIRECTLY BELOW (THE FIX I CAME UP WITH FOR ABOVE) WHY DOES THIS FUNCTION GET CALLED SO MANY TIMES WITH DIFFERENT RESULTS
-        // it is probably because after the image was successfully rotated after taking it, the program doesn't know it has already been successfully rotated the next time the app is launched. need to say boolean has been rotated.
-        // need to make already rotated to false every time a new pic is taken
+        // TODO: 1. WHY DOESN'T PORTRAIT ROTATE PROPERLY?
 
         if (p != null) {
             String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
             b = PictureUtils.getScaledDrawable(getActivity(), path);
 
-            if (p.getmRotation() == Surface.ROTATION_0) {
+            if (p.getmRotation() == Surface.ROTATION_0) {           // NORMAL PORTRAIT
                 Matrix matrix = new Matrix();
 
-                if (!mCrime.getmPhoto().ismAlreadyRotated()) {
-                    matrix.postRotate(90);
-                }
-//                matrix.postRotate(90);
-
-                // TODO: MAYBE MOVE THESE LINES BELOW INTO IF STATEMENT ABOVE. SAME FOR GROUP BELOW OF 270
+//                if (!mCrime.getmPhoto().ismAlreadyRotated()) {
+//                    matrix.postRotate(90);
+//                }
+                matrix.postRotate(90);
                 Bitmap rotatedBitmap = Bitmap.createBitmap(b.getBitmap(), 0, 0, b.getIntrinsicWidth(), b.getIntrinsicHeight(), matrix, true);
                 mPhotoView.setImageBitmap(rotatedBitmap);
-                mCrime.getmPhoto().setmAlreadyRotated(true);
+//                mCrime.getmPhoto().setmAlreadyRotated(true);
             }
-            else if (p.getmRotation() == Surface.ROTATION_270) {
+            else if (p.getmRotation() == Surface.ROTATION_270) {    // WEIRD LANDSCAPE
                 Matrix matrix = new Matrix();
 
-                if (!mCrime.getmPhoto().ismAlreadyRotated()) {
-                    matrix.postRotate(180);
-                }
-//                matrix.postRotate(180);
-
+//                if (!mCrime.getmPhoto().ismAlreadyRotated()) {
+//                    matrix.postRotate(180);
+//                }
+                matrix.postRotate(180);
                 Bitmap rotatedBitmap = Bitmap.createBitmap(b.getBitmap(), 0, 0, b.getIntrinsicWidth(), b.getIntrinsicHeight(), matrix, true);
                 mPhotoView.setImageBitmap(rotatedBitmap);
-                mCrime.getmPhoto().setmAlreadyRotated(true);
+//                mCrime.getmPhoto().setmAlreadyRotated(true);
             }
-            else {
+            else {                                                  // NORMAL LANDSCAPE
                 mPhotoView.setImageDrawable(b);
             }
         }
@@ -255,19 +249,13 @@ public class CrimeFragment extends Fragment {
         }
         else if (requestCode == REQUEST_PHOTO) {
 
+            Photo oldPhoto = mCrime.getmPhoto();
+            if (oldPhoto != null) {
+                deletePhoto(oldPhoto.getFilename());
+            }
+
             String filename = data.getStringExtra(CrimeCameraFragment.EXTRA_PHOTO_FILENAME);
             int rotation = data.getIntExtra(CrimeCameraFragment.EXTRA_PHOTO_ORIENTATION, 0);
-
-            // TODO: 1. FIGURE OUT HOW TO DELETE PHOTOS
-
-            if (mCrime.getmPhoto() != null) {
-                if (getActivity().deleteFile(filename)) {
-                    Log.d(TAG, filename + " deleted from disk.");
-                }
-                else {
-                    Log.d(TAG, "Error deleting " + filename + " from disk.");
-                }
-            }
 
             if (filename != null) {
                 Photo p = new Photo(filename);
@@ -333,5 +321,14 @@ public class CrimeFragment extends Fragment {
     public void onPause() {
         super.onPause();
         CrimeLab.get(getActivity()).saveCrimes();
+    }
+
+    public void deletePhoto(String filename) {
+        if (getActivity().deleteFile(filename)) {
+            Log.d(TAG, filename + " deleted from disk.");
+        }
+        else {
+            Log.d(TAG, "Error deleting " + filename + " from disk.");
+        }
     }
 }
