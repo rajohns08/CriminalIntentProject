@@ -15,12 +15,14 @@ import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -157,6 +159,7 @@ public class CrimeFragment extends Fragment {
             });
         }
 
+        // TODO: IMPLEMENT CONTEXTUAL ACTION MODE DELETING FOR IMAGE
         if (v != null) {
             mPhotoView = (ImageView)v.findViewById(R.id.crime_imageView);
         }
@@ -181,6 +184,10 @@ public class CrimeFragment extends Fragment {
                     mPhotoButton.setEnabled(false);
                 }
             }
+        }
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            registerForContextMenu(mPhotoView);
         }
 
         return v;
@@ -255,6 +262,23 @@ public class CrimeFragment extends Fragment {
 
     void updateDateAndTime() {
         mDateAndTimeButton.setText(mCrime.getDateFormat().format(mCrime.getmDate()) + ", " +  mCrime.getTimeFormat().format(mCrime.getmTime()));
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        getActivity().getMenuInflater().inflate(R.menu.crime_list_item_context, menu);
+    }
+
+    //TODO: UPDATE MENU_ITEM_DELETE_CRIME TO BE SEPARATE RESOURCE FILE FOR DELETE PICTURE SO NOT CONFUSING
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_delete_crime:
+                mCrime.setmPhoto(null);
+                deletePhoto(mCrime.getmPhoto().getFilename());
+                return true;
+        }
+        return super.onContextItemSelected(item);
     }
 
     @Override
