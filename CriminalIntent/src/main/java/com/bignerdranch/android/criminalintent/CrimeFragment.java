@@ -6,8 +6,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -196,23 +193,7 @@ public class CrimeFragment extends Fragment {
             String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
             BitmapDrawable b = PictureUtils.getScaledDrawable(getActivity(), path);
 
-            if (p.getmRotation() == Surface.ROTATION_0) {           // NORMAL PORTRAIT
-                Matrix matrix = new Matrix();
-
-                matrix.postRotate(90);
-                Bitmap rotatedBitmap = Bitmap.createBitmap(b.getBitmap(), 0, 0, b.getIntrinsicWidth(), b.getIntrinsicHeight(), matrix, true);
-                mPhotoView.setImageBitmap(rotatedBitmap);
-            }
-            else if (p.getmRotation() == Surface.ROTATION_270) {    // WEIRD LANDSCAPE
-                Matrix matrix = new Matrix();
-
-                matrix.postRotate(180);
-                Bitmap rotatedBitmap = Bitmap.createBitmap(b.getBitmap(), 0, 0, b.getIntrinsicWidth(), b.getIntrinsicHeight(), matrix, true);
-                mPhotoView.setImageBitmap(rotatedBitmap);
-            }
-            else {                                                  // NORMAL LANDSCAPE
-                mPhotoView.setImageDrawable(b);
-            }
+            mPhotoView = ImageRotation.rotateImage(mPhotoView, p.getmRotation(), b);
         }
     }
 

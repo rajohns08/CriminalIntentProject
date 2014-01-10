@@ -1,12 +1,9 @@
 package com.bignerdranch.android.criminalintent;
 
 import android.app.DialogFragment;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -39,27 +36,7 @@ public class ImageFragment extends android.support.v4.app.DialogFragment {
         int rotation = getArguments().getInt(EXTRA_PHOTO_ROTATION);
         BitmapDrawable image = PictureUtils.getScaledDrawable(getActivity(), path);
 
-        //TODO: 1. COMBINE THIS ROTATE CODE AND SAME ROTATE CODE IN SHOWPHOTO() OF CRIMEFRAGMENT INTO SEPARATE CLASS
-
-        if (rotation == Surface.ROTATION_0) {           // NORMAL PORTRAIT
-            Matrix matrix = new Matrix();
-
-            matrix.postRotate(90);
-            Bitmap rotatedBitmap = Bitmap.createBitmap(image.getBitmap(), 0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight(), matrix, true);
-            mImageView.setImageBitmap(rotatedBitmap);
-        }
-        else if (rotation == Surface.ROTATION_270) {    // WEIRD LANDSCAPE
-            Matrix matrix = new Matrix();
-
-            matrix.postRotate(180);
-            Bitmap rotatedBitmap = Bitmap.createBitmap(image.getBitmap(), 0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight(), matrix, true);
-            mImageView.setImageBitmap(rotatedBitmap);
-        }
-        else {                                                  // NORMAL LANDSCAPE
-            mImageView.setImageDrawable(image);
-        }
-
-        return mImageView;
+        return ImageRotation.rotateImage(mImageView, rotation, image);
     }
 
     @Override
