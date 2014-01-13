@@ -159,7 +159,6 @@ public class CrimeFragment extends Fragment {
             });
         }
 
-        // TODO: IMPLEMENT CONTEXTUAL ACTION MODE DELETING FOR IMAGE
         if (v != null) {
             mPhotoView = (ImageView)v.findViewById(R.id.crime_imageView);
         }
@@ -177,6 +176,7 @@ public class CrimeFragment extends Fragment {
             }
         });
 
+        //TODO: 1. FIGURE OUT WHY SET ENABLED FALSE IS BEING EXECUTED IN 2.3 EMULATOR BUT NOT 4.1.2
         PackageManager pm = getActivity().getPackageManager();
         if (pm != null) {
             if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && !pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)) {
@@ -186,9 +186,7 @@ public class CrimeFragment extends Fragment {
             }
         }
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            registerForContextMenu(mPhotoView);
-        }
+        registerForContextMenu(mPhotoView);
 
         return v;
     }
@@ -274,8 +272,11 @@ public class CrimeFragment extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_delete_crime:
+                if (mCrime.getmPhoto() != null) {
+                    deletePhoto(mCrime.getmPhoto().getFilename());
+                }
                 mCrime.setmPhoto(null);
-                deletePhoto(mCrime.getmPhoto().getFilename());
+                mPhotoView.setImageDrawable(null);
                 return true;
         }
         return super.onContextItemSelected(item);
