@@ -176,7 +176,6 @@ public class CrimeFragment extends Fragment {
             }
         });
 
-        //TODO: 1. FIGURE OUT WHY SET ENABLED FALSE IS BEING EXECUTED IN 2.3 EMULATOR BUT NOT 4.1.2
         PackageManager pm = getActivity().getPackageManager();
         if (pm != null) {
             if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && !pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)) {
