@@ -263,14 +263,13 @@ public class CrimeFragment extends Fragment {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        getActivity().getMenuInflater().inflate(R.menu.crime_list_item_context, menu);
+        getActivity().getMenuInflater().inflate(R.menu.crime_list_item_delete_photo, menu);
     }
 
-    //TODO: UPDATE MENU_ITEM_DELETE_CRIME TO BE SEPARATE RESOURCE FILE FOR DELETE PICTURE SO NOT CONFUSING
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_item_delete_crime:
+            case R.id.menu_item_delete_photo:
                 if (mCrime.getmPhoto() != null) {
                     deletePhoto(mCrime.getmPhoto().getFilename());
                 }
