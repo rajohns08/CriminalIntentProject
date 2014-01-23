@@ -16,6 +16,7 @@ public class Crime {
     private static final String JSON_SOLVED = "solved";
     private static final String JSON_DATE = "date";
     private static final String JSON_PHOTO = "photo";
+    private static final String JSON_SUSPECT = "suspect";
     private static final String JSON_TIME = "time";
     private static final String JSON_DATEFORMAT = "dateFormat";
     private static final String JSON_TIMEFORMAT = "timeFormat";
@@ -24,6 +25,7 @@ public class Crime {
     private String mTitle;
     private Date mDate;
     private Photo mPhoto;
+    private String mSuspect;
     private Date mTime;
     private boolean mSolved;
     private SimpleDateFormat dateFormat;
@@ -49,6 +51,9 @@ public class Crime {
         if (json.has(JSON_PHOTO)) {
             mPhoto = new Photo(json.getJSONObject(JSON_PHOTO));
         }
+        if (json.has(JSON_SUSPECT)) {
+            mSuspect = json.getString(JSON_SUSPECT);
+        }
     }
 
     public JSONObject toJSON() throws JSONException {
@@ -63,6 +68,7 @@ public class Crime {
 
         if (mPhoto != null) {
             json.put(JSON_PHOTO, mPhoto.toJSON());
+            json.put(JSON_SUSPECT, mSuspect);
         }
 
         return json;
@@ -126,5 +132,13 @@ public class Crime {
 
     public void setmPhoto(Photo mPhoto) {
         this.mPhoto = mPhoto;
+    }
+
+    public String getSuspect() {
+        return mSuspect;
+    }
+
+    public void setSuspect(String suspect) {
+        mSuspect = suspect;
     }
 }

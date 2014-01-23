@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -187,6 +188,18 @@ public class CrimeFragment extends Fragment {
 
         registerForContextMenu(mPhotoView);
 
+        Button reportButton = (Button)v.findViewById(R.id.crime_reportButton);
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_TEXT, getCrimeReport());
+                i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.crime_report_subject));
+                startActivity(i);
+            }
+        });
+
         return v;
     }
 
@@ -340,5 +353,30 @@ public class CrimeFragment extends Fragment {
         else {
             Log.d(TAG, "Error deleting " + filename + " from disk.");
         }
+    }
+
+    private String getCrimeReport() {
+        String solvedString = null;
+        if (mCrime.ismSolved()) {
+            solvedString = getString(R.string.crime_report_solved);
+        }
+        else {
+            solvedString = getString(R.string.crime_report_unsolved);
+        }
+
+        String dateFormat = "EEE, MM dd";
+        String dateString = android.text.format.DateFormat.format(dateFormat, mCrime.getmDate()).toString();
+
+        String suspect = mCrime.getSuspect();
+        if (suspect == null) {
+            suspect = getString(R.string.crime_report_no_suspect);
+        }
+        else {
+            suspect = getString(R.string.crime_report_suspect, suspect);
+        }
+
+        String report = getString(R.string.crime_report, mCrime.getmTitle(), dateString, solvedString, suspect);
+
+        return report;
     }
 }
