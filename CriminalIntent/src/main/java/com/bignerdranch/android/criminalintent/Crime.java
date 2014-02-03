@@ -17,6 +17,7 @@ public class Crime {
     private static final String JSON_DATE = "date";
     private static final String JSON_PHOTO = "photo";
     private static final String JSON_SUSPECT = "suspect";
+    private static final String JSON_SUSPECT_NUMBER = "suspectNumber";
     private static final String JSON_TIME = "time";
     private static final String JSON_DATEFORMAT = "dateFormat";
     private static final String JSON_TIMEFORMAT = "timeFormat";
@@ -26,6 +27,7 @@ public class Crime {
     private Date mDate;
     private Photo mPhoto;
     private String mSuspect;
+    private String mSuspectNumber;
     private Date mTime;
     private boolean mSolved;
     private SimpleDateFormat dateFormat;
@@ -54,6 +56,9 @@ public class Crime {
         if (json.has(JSON_SUSPECT)) {
             mSuspect = json.getString(JSON_SUSPECT);
         }
+        if (json.has(JSON_SUSPECT_NUMBER)) {
+            mSuspectNumber = json.getString(JSON_SUSPECT_NUMBER);
+        }
     }
 
     public JSONObject toJSON() throws JSONException {
@@ -65,10 +70,11 @@ public class Crime {
         json.put(JSON_TIME, mTime.getTime());
         json.put(JSON_DATEFORMAT, dateFormat.toPattern());
         json.put(JSON_TIMEFORMAT, getTimeFormat().toPattern());
-
+// TODO: FIGURE OUT IF PUTTING MSUSPECT AND MSUSPECTNUMBER IS ACTUALLY SUPPOSED TO BE INSIDE THE IF MPHOTO IF STATEMENT
         if (mPhoto != null) {
             json.put(JSON_PHOTO, mPhoto.toJSON());
             json.put(JSON_SUSPECT, mSuspect);
+            json.put(JSON_SUSPECT_NUMBER, mSuspectNumber);
         }
 
         return json;
@@ -140,5 +146,13 @@ public class Crime {
 
     public void setSuspect(String suspect) {
         mSuspect = suspect;
+    }
+
+    public String getSuspectNumber() {
+        return mSuspectNumber;
+    }
+
+    public void setSuspectNumber(String suspectNumber) {
+        mSuspectNumber = suspectNumber;
     }
 }

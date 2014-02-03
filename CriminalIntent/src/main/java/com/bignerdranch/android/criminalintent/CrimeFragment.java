@@ -59,6 +59,7 @@ public class CrimeFragment extends Fragment {
     private Button mDateAndTimeButton;
     private ImageView mPhotoView;
     private Button mSuspectButton;
+    private Button mCallButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -220,6 +221,17 @@ public class CrimeFragment extends Fragment {
             mSuspectButton.setText(mCrime.getSuspect());
         }
 
+        mCallButton = (Button)v.findViewById(R.id.crime_callButton);
+        mCallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: WHAT HAPPENS IF MCRIME DOESNT HAVE SUSPECT NUMBER?
+                Uri number = Uri.parse("tel:" + mCrime.getSuspectNumber());
+                Intent i = new Intent(Intent.ACTION_DIAL, number);
+                startActivity(i);
+            }
+        });
+
         return v;
     }
 
@@ -288,22 +300,31 @@ public class CrimeFragment extends Fragment {
                 showPhoto();
             }
         }
+
         else if (requestCode == REQUEST_CONTACT) {
-            Uri contactURI = data.getData();
+            Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
             String[] queryFields = new String[] {
-                    ContactsContract.Contacts.DISPLAY_NAME
+                    ContactsContract.Contacts.DISPLAY_NAME,
+                    ContactsContract.CommonDataKinds.Phone.NUMBER
             };
 
-            Cursor c = getActivity().getContentResolver().query(contactURI, queryFields, null, null, null);
+            Cursor c = getActivity().getContentResolver().query(uri, queryFields, null, null, null);
 
             if (c.getCount() == 0) {
                 c.close();
                 return;
             }
 
+            int indexName = c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+            int indexNumber = c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+
             c.moveToFirst();
-            String suspect = c.getString(0);
+            String suspect = c.getString(indexName);
+            String number = c.getString(indexNumber);
+
             mCrime.setSuspect(suspect);
+            mCrime.setSuspectNumber(number);
+
             mSuspectButton.setText(suspect);
             c.close();
         }
