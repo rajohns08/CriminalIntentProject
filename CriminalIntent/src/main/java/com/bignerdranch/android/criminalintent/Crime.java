@@ -70,12 +70,11 @@ public class Crime {
         json.put(JSON_TIME, mTime.getTime());
         json.put(JSON_DATEFORMAT, dateFormat.toPattern());
         json.put(JSON_TIMEFORMAT, getTimeFormat().toPattern());
-// TODO: FIGURE OUT IF PUTTING MSUSPECT AND MSUSPECTNUMBER IS ACTUALLY SUPPOSED TO BE INSIDE THE IF MPHOTO IF STATEMENT
         if (mPhoto != null) {
             json.put(JSON_PHOTO, mPhoto.toJSON());
-            json.put(JSON_SUSPECT, mSuspect);
-            json.put(JSON_SUSPECT_NUMBER, mSuspectNumber);
         }
+        json.put(JSON_SUSPECT, mSuspect);
+        json.put(JSON_SUSPECT_NUMBER, mSuspectNumber);
 
         return json;
     }

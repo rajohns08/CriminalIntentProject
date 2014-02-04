@@ -32,6 +32,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.net.URI;
 import java.text.DateFormat;
@@ -225,10 +226,14 @@ public class CrimeFragment extends Fragment {
         mCallButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: WHAT HAPPENS IF MCRIME DOESNT HAVE SUSPECT NUMBER?
-                Uri number = Uri.parse("tel:" + mCrime.getSuspectNumber());
-                Intent i = new Intent(Intent.ACTION_DIAL, number);
-                startActivity(i);
+                if (mCrime.getSuspectNumber() != null) {
+                    Uri number = Uri.parse("tel:" + mCrime.getSuspectNumber());
+                    Intent i = new Intent(Intent.ACTION_DIAL, number);
+                    startActivity(i);
+                }
+                else {
+                    Toast.makeText(getActivity(), "No suspect chosen", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -328,6 +333,8 @@ public class CrimeFragment extends Fragment {
             mSuspectButton.setText(suspect);
             c.close();
         }
+
+        CrimeLab.get(getActivity()).saveCrimes();
     }
 
     void updateDateAndTime() {
