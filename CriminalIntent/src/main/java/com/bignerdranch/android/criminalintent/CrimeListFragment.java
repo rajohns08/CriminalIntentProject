@@ -36,6 +36,7 @@ public class CrimeListFragment extends ListFragment{
     private static final String TAG = "CrimeListFragment";
     private boolean mSubtitleVisible;
     private Button plusButton;
+    private Callbacks mCallbacks;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -228,5 +229,7 @@ public class CrimeListFragment extends ListFragment{
         i.putExtra(CrimeFragment.EXTRA_CRIME_ID, crime.getmID());
         startActivityForResult(i, 0);
     }
+
+
 
 }

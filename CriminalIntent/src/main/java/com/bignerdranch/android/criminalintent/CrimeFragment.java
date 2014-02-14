@@ -77,12 +77,8 @@ public class CrimeFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_crime, parent, false);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (NavUtils.getParentActivityName(getActivity()) != null) {
-                if (getActivity().getActionBar() != null) {
-                    getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-                }
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && NavUtils.getParentActivityIntent(getActivity()) != null) {
+            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         if (v != null) {
