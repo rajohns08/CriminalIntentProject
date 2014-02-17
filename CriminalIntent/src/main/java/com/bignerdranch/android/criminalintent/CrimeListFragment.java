@@ -2,6 +2,7 @@ package com.bignerdranch.android.criminalintent;
 // MAIN BRANCH!!
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Build;
@@ -37,6 +38,22 @@ public class CrimeListFragment extends ListFragment{
     private boolean mSubtitleVisible;
     private Button plusButton;
     private Callbacks mCallbacks;
+
+    public interface Callbacks {
+        void onCrimeSelected(Crime crime);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mCallbacks = (Callbacks)activity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
