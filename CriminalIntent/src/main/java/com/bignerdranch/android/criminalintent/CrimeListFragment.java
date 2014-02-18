@@ -144,9 +144,7 @@ public class CrimeListFragment extends ListFragment{
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Crime c = ((CrimeAdapter)getListAdapter()).getItem(position);
-        Intent i = new Intent(getActivity(), CrimePagerActivity.class);
-        i.putExtra(CrimeFragment.EXTRA_CRIME_ID, c.getmID());
-        startActivity(i);
+        mCallbacks.onCrimeSelected(c);
     }
 
     private class CrimeAdapter extends ArrayAdapter<Crime> {
@@ -189,7 +187,7 @@ public class CrimeListFragment extends ListFragment{
             showSubtitle.setTitle(R.string.hide_subtitle);
         }
     }
-
+    //TODO: WHY DOESN'T MY TABLET LAYOUT HAVE VERTICAL LINE SEPARATING LIST WITH DETAIL?
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -242,9 +240,8 @@ public class CrimeListFragment extends ListFragment{
     public void goToAddCrimePage() {
         Crime crime = new Crime();
         CrimeLab.get(getActivity()).addCrime(crime);
-        Intent i = new Intent(getActivity(), CrimePagerActivity.class);
-        i.putExtra(CrimeFragment.EXTRA_CRIME_ID, crime.getmID());
-        startActivityForResult(i, 0);
+        ((CrimeAdapter)getListAdapter()).notifyDataSetChanged();
+        mCallbacks.onCrimeSelected(crime);
     }
 
 
