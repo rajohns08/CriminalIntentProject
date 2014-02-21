@@ -55,6 +55,10 @@ public class CrimeListFragment extends ListFragment{
         mCallbacks = null;
     }
 
+    public void updateUI() {
+        ((CrimeAdapter)getListAdapter()).notifyDataSetChanged();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -187,7 +191,7 @@ public class CrimeListFragment extends ListFragment{
             showSubtitle.setTitle(R.string.hide_subtitle);
         }
     }
-    //TODO: WHY DOESN'T MY TABLET LAYOUT HAVE VERTICAL LINE SEPARATING LIST WITH DETAIL?
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

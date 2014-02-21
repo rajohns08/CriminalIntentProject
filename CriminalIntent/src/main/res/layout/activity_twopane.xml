@@ -6,12 +6,18 @@
               android:layout_height="match_parent"
               android:showDividers="middle" >
 
+    <!--TODO: CAN ADD STYLE IN THIS FOR SEPARATOR LINE? LIKE IN FRAGMENT_CRIME UNDER DETAILS?-->
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1" >
+        android:layout_weight="1">
     </FrameLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="fill_parent"
+        android:background="#000000" />
 
     <FrameLayout
         android:id="@+id/detailFragmentContainer"
