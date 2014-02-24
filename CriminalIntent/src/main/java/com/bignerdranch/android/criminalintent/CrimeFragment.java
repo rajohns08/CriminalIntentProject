@@ -111,6 +111,7 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 mCrime.setmTitle(charSequence.toString());
+                mCallbacks.onCrimeUpdated(mCrime);
             }
 
             @Override
@@ -161,6 +162,7 @@ public class CrimeFragment extends Fragment {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     mCrime.setmSolved(b);
+                    mCallbacks.onCrimeUpdated(mCrime);
                 }
             });
         }
@@ -277,11 +279,13 @@ public class CrimeFragment extends Fragment {
         if (requestCode == REQUEST_DATE) {
             Date date = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setmDate(date);
+            mCallbacks.onCrimeUpdated(mCrime);
             updateDateAndTime();
         }
         else if (requestCode == REQUEST_TIME) {
             Date time = (Date)data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
             mCrime.setmTime(time);
+            mCallbacks.onCrimeUpdated(mCrime);
             updateDateAndTime();
         }
         else if (requestCode == REQUEST_PHOTO) {
@@ -298,6 +302,7 @@ public class CrimeFragment extends Fragment {
                 Photo p = new Photo(filename);
                 p.setmRotation(rotation);
                 mCrime.setmPhoto(p);
+                mCallbacks.onCrimeUpdated(mCrime);
                 showPhoto();
             }
         }
@@ -317,9 +322,12 @@ public class CrimeFragment extends Fragment {
             c.moveToFirst();
             String suspect = c.getString(0);
             mCrime.setSuspect(suspect);
+            mCallbacks.onCrimeUpdated(mCrime);
             mSuspectButton.setText(suspect);
             c.close();
         }
+
+
     }
 
     void updateDateAndTime() {

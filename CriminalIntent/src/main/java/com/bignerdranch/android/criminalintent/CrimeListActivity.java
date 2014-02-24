@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 /**
  * Created by rajohns on 7/16/13.
  */
-public class CrimeListActivity extends SingleFragmentActivity implements CrimeListFragment.Callbacks {
+public class CrimeListActivity extends SingleFragmentActivity implements CrimeListFragment.Callbacks, CrimeFragment.Callbacks {
 
     @Override
     protected Fragment createFragment() {
@@ -39,5 +39,11 @@ public class CrimeListActivity extends SingleFragmentActivity implements CrimeLi
             ft.add(R.id.detailFragmentContainer, newDetail);
             ft.commit();
         }
+    }
+
+    public void onCrimeUpdated(Crime crime) {
+        FragmentManager fm = getSupportFragmentManager();
+        CrimeListFragment listFragment = (CrimeListFragment)fm.findFragmentById(R.id.fragmentContainer);
+        listFragment.updateUI();
     }
 }
