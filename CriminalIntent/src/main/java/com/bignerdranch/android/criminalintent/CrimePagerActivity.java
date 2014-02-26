@@ -73,6 +73,6 @@ public class CrimePagerActivity extends FragmentActivity implements CrimeFragmen
     }
 
     public void onCrimeUpdated(Crime crime) {
-        
+
     }
 }
